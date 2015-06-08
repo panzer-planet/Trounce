@@ -1,0 +1,10 @@
+# Kobolt (c) 2015 Werner Roets
+# All requests 
+<IfModule mod_rewrite.c>
+	
+	RewriteEngine On
+	RewriteCond %{REQUEST_FILENAME} !-f	
+	RewriteCond %{REQUEST_FILENAME} !-d	
+	RewriteRule ^(.*)$ index.php?url=$1 [L]
+	
+</IfModule>

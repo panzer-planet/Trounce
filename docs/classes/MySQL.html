@@ -1,0 +1,537 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
+<meta charset="utf-8">
+<title>phpDocumentor » \MySQL</title>
+<meta name="author" content="Mike van Riel">
+<meta name="description" content="">
+<link href="../css/template.css" rel="stylesheet" media="all">
+<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
+<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner"><div class="container">
+<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
+<li class="dropdown">
+<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a>Packages</a></li>
+<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
+<li><a href="../packages/lib-cobolt.html"><i class="icon-folder-open"></i> lib-cobolt</a></li>
+</ul>
+</li>
+<li class="dropdown" id="charts-menu">
+<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
+</li>
+<li class="dropdown" id="reports-menu">
+<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
+<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
+                <span class="label label-info">155</span></a></li>
+<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
+                <ul></ul></a></li>
+<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
+                <span class="label label-info">1</span></a></li>
+</ul>
+</li>
+</ul></div>
+</div></div>
+<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+</div>
+<div id="___" class="container">
+<noscript><div class="alert alert-warning">
+                            Javascript is disabled; several features are only available
+                            if Javascript is enabled.
+                        </div></noscript>
+<div class="row">
+<div class="span4">
+<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
+<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
+</div>
+<ul class="side-nav nav nav-list">
+<li class="nav-header">
+<i class="icon-custom icon-method"></i> Methods
+                    <ul>
+<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
+        </span><pre>__construct()</pre></a></li>
+<li class="method public "><a href="#method_countRows" title="countRows :: Get the number of records in a table"><span class="description">Get the number of records in a table</span><pre>countRows()</pre></a></li>
+<li class="method public "><a href="#method_createDatabase" title="createDatabase :: Create a new database"><span class="description">Create a new database</span><pre>createDatabase()</pre></a></li>
+<li class="method public "><a href="#method_createTable" title="createTable :: Create a new table"><span class="description">Create a new table</span><pre>createTable()</pre></a></li>
+<li class="method public "><a href="#method_delete" title="delete :: Delete records from the database"><span class="description">Delete records from the database</span><pre>delete()</pre></a></li>
+<li class="method public "><a href="#method_insert" title="insert :: MySQL INSERT"><span class="description">MySQL INSERT</span><pre>insert()</pre></a></li>
+<li class="method public "><a href="#method_isConnected" title="isConnected :: Getter for connected"><span class="description">Getter for connected</span><pre>isConnected()</pre></a></li>
+<li class="method public "><a href="#method_isLogging" title="isLogging :: Getter for logging"><span class="description">Getter for logging</span><pre>isLogging()</pre></a></li>
+<li class="method public "><a href="#method_isVerbose" title="isVerbose :: Getter for verbose"><span class="description">Getter for verbose</span><pre>isVerbose()</pre></a></li>
+<li class="method public "><a href="#method_select" title="select :: MySQL SELECT"><span class="description">MySQL SELECT</span><pre>select()</pre></a></li>
+<li class="method public "><a href="#method_setErrorMode" title="setErrorMode :: Set the error mode E_SILENT, E_WARNING, E_EXCEPTION"><span class="description">Set the error mode E_SILENT, E_WARNING, E_EXCEPTION</span><pre>setErrorMode()</pre></a></li>
+<li class="method public "><a href="#method_setLogging" title="setLogging :: Logging to file enabled/disabled"><span class="description">Logging to file enabled/disabled</span><pre>setLogging()</pre></a></li>
+<li class="method public "><a href="#method_setPersistent" title="setPersistent :: Enable or disable persistent connection"><span class="description">Enable or disable persistent connection</span><pre>setPersistent()</pre></a></li>
+<li class="method public "><a href="#method_setVerbose" title="setVerbose :: Enabled/disabled verbose mode which echoes debug data"><span class="description">Enabled/disabled verbose mode which echoes debug data</span><pre>setVerbose()</pre></a></li>
+<li class="method public "><a href="#method_update" title="update :: "><span class="description">update()
+        </span><pre>update()</pre></a></li>
+<li class="method public "><a href="#method_useDb" title="useDb :: Select a database or change to a database"><span class="description">Select a database or change to a database</span><pre>useDb()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="method private "><a href="#method_connect" title="connect :: Connect to a MySQL database using the current settings"><span class="description">Connect to a MySQL database using the current settings</span><pre>connect()</pre></a></li>
+<li class="method private "><a href="#method_disconnect" title="disconnect :: Disconnect by destroying the PDO object"><span class="description">Disconnect by destroying the PDO object</span><pre>disconnect()</pre></a></li>
+<li class="method private "><a href="#method_isValidErrorMode" title="isValidErrorMode :: Returns true if is valid error mode"><span class="description">Returns true if is valid error mode</span><pre>isValidErrorMode()</pre></a></li>
+<li class="method private "><a href="#method_log" title="log :: Write a string of text to file"><span class="description">Write a string of text to file</span><pre>log()</pre></a></li>
+<li class="method private "><a href="#method_say" title="say :: Print to stdout for debug"><span class="description">Print to stdout for debug</span><pre>say()</pre></a></li>
+<li class="method private "><a href="#method_setPdoErrMode" title="setPdoErrMode :: Sets the PDO ATTR_ERRMODE attribute based on the current
+value of $this-&gt;error_mode"><span class="description">Sets the PDO ATTR_ERRMODE attribute based on the current
+value of $this-&gt;error_mode</span><pre>setPdoErrMode()</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-property"></i> Properties
+                    <ul>
+<li class="property public "><a href="#property_db_name" title="$db_name :: The name of the database currently in use"><span class="description"></span><pre>$db_name</pre></a></li>
+<li class="property public "><a href="#property_host" title="$host :: MySQL server hostname"><span class="description"></span><pre>$host</pre></a></li>
+<li class="property public "><a href="#property_username" title="$username :: MySQL server username"><span class="description"></span><pre>$username</pre></a></li>
+</ul>
+</li>
+<li class="nav-header private">» Private
+                    <ul>
+<li class="property private "><a href="#property_connected" title="$connected :: Connected to MySQL server"><span class="description"></span><pre>$connected</pre></a></li>
+<li class="property private "><a href="#property_error_mode" title="$error_mode :: The current error mode"><span class="description"></span><pre>$error_mode</pre></a></li>
+<li class="property private "><a href="#property_log_location" title="$log_location :: The location of the log file
+@ var string"><span class="description"></span><pre>$log_location</pre></a></li>
+<li class="property private "><a href="#property_logging" title="$logging :: Enable logging to text file"><span class="description"></span><pre>$logging</pre></a></li>
+<li class="property private "><a href="#property_password" title="$password :: MySQL server password"><span class="description"></span><pre>$password</pre></a></li>
+<li class="property private "><a href="#property_pdo" title="$pdo :: PHP Data Object"><span class="description"></span><pre>$pdo</pre></a></li>
+<li class="property private "><a href="#property_persistent" title="$persistent :: Persistent connection enabled"><span class="description"></span><pre>$persistent</pre></a></li>
+<li class="property private "><a href="#property_verbose" title="$verbose :: Enable verbose mode, shows debug information"><span class="description"></span><pre>$verbose</pre></a></li>
+</ul>
+</li>
+<li class="nav-header">
+<i class="icon-custom icon-constant"></i> Constants
+                    <ul>
+<li class="constant  "><a href="#constant_E_EXCEPTION" title="E_EXCEPTION :: Exception on error mode"><span class="description">Exception on error mode</span><pre>E_EXCEPTION</pre></a></li>
+<li class="constant  "><a href="#constant_E_SILENT" title="E_SILENT :: Hide all errors mode"><span class="description">Hide all errors mode</span><pre>E_SILENT</pre></a></li>
+<li class="constant  "><a href="#constant_E_WARNING" title="E_WARNING :: Warning on error mode"><span class="description">Warning on error mode</span><pre>E_WARNING</pre></a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="span8">
+<a id="\MySQL"></a><ul class="breadcrumb">
+<li>
+<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
+</li>
+<li><a href="../namespaces/global.html">global</a></li>
+<li class="active">
+<span class="divider">\</span><a href="../classes/MySQL.html">MySQL</a>
+</li>
+</ul>
+<div class="element class">
+<p class="short_description">lib-cobolt Db class</p>
+<div class="details">
+<div class="long_description"><p>This class provides a simpler way of interacting with a MySQL
+database using PDO</p></div>
+<table class="table table-bordered">
+<tr>
+<th>package</th>
+<td><a href="../packages/lib-cobolt.Db.html">lib-cobolt</a></td>
+</tr>
+<tr>
+<th>subpackage</th>
+<td>Db</td>
+</tr>
+<tr>
+<th>author</th>
+<td><a href="mailto:cobolt.exe@gmail.com">Werner Roets</a></td>
+</tr>
+<tr>
+<th>copyright</th>
+<td>2013 Werner Roets</td>
+</tr>
+</table>
+<h3>
+<i class="icon-custom icon-method"></i> Methods</h3>
+<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
+<h2>__construct()
+        </h2>
+<pre>__construct(string $host, string $username, string $password) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$host</h4>
+<code>string</code><p>hostname</p></div>
+<div class="subelement argument">
+<h4>$username</h4>
+<code>string</code><p>username</p></div>
+<div class="subelement argument">
+<h4>$password</h4>
+<code>string</code><p>password</p></div>
+</div></div>
+</div>
+<a id="method_countRows"></a><div class="element clickable method public method_countRows" data-toggle="collapse" data-target=".method_countRows .collapse">
+<h2>Get the number of records in a table</h2>
+<pre>countRows(string $table_name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table_name</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method_createDatabase"></a><div class="element clickable method public method_createDatabase" data-toggle="collapse" data-target=".method_createDatabase .collapse">
+<h2>Create a new database</h2>
+<pre>createDatabase(string $database_name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$database_name</h4>
+<code>string</code>
+</div>
+<h3>Exceptions</h3>
+<table class="table table-bordered"><tr>
+<th><code><a href="../classes/DbCouldNotCreateDatabaseException.html">\DbCouldNotCreateDatabaseException</a></code></th>
+<td>when database can't be created</td>
+</tr></table>
+</div></div>
+</div>
+<a id="method_createTable"></a><div class="element clickable method public method_createTable" data-toggle="collapse" data-target=".method_createTable .collapse">
+<h2>Create a new table</h2>
+<pre>createTable(string $table_name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table_name</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method_delete"></a><div class="element clickable method public method_delete" data-toggle="collapse" data-target=".method_delete .collapse">
+<h2>Delete records from the database</h2>
+<pre>delete(string $table_name, string $where_clause) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table_name</h4>
+<code>string</code><p>the name of the table</p></div>
+<div class="subelement argument">
+<h4>$where_clause</h4>
+<code>string</code><p>SQL compatible where clause</p></div>
+</div></div>
+</div>
+<a id="method_insert"></a><div class="element clickable method public method_insert" data-toggle="collapse" data-target=".method_insert .collapse">
+<h2>MySQL INSERT</h2>
+<pre>insert(string $table_name, array $col_val) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>This method inserts data into a database table</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$table_name</h4>
+<code>string</code><p>The name of the table to insert data into</p></div>
+<div class="subelement argument">
+<h4>$col_val</h4>
+<code>array</code><p>A <code>$key => val</code> pair where the keys are column names and the values
+    are arrays of row data.</p>
+</div>
+</div></div>
+</div>
+<a id="method_isConnected"></a><div class="element clickable method public method_isConnected" data-toggle="collapse" data-target=".method_isConnected .collapse">
+<h2>Getter for connected</h2>
+<pre>isConnected() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a id="method_isLogging"></a><div class="element clickable method public method_isLogging" data-toggle="collapse" data-target=".method_isLogging .collapse">
+<h2>Getter for logging</h2>
+<pre>isLogging() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a id="method_isVerbose"></a><div class="element clickable method public method_isVerbose" data-toggle="collapse" data-target=".method_isVerbose .collapse">
+<h2>Getter for verbose</h2>
+<pre>isVerbose() : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Returns</h3>
+<div class="subelement response"><code>bool</code></div>
+</div></div>
+</div>
+<a id="method_select"></a><div class="element clickable method public method_select" data-toggle="collapse" data-target=".method_select .collapse">
+<h2>MySQL SELECT</h2>
+<pre>select(string $select_query) : array</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"><p>This method selects and returns data from a database table</p></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$select_query</h4>
+<code>string</code><p>You can write in full sql like 'SELECT * FROM table'
+    or omit the SELECT like ' select('* FROM table');</p>
+</div>
+<h3>Returns</h3>
+<div class="subelement response">
+<code>array</code>Associative array of data retreived from the table</div>
+</div></div>
+</div>
+<a id="method_setErrorMode"></a><div class="element clickable method public method_setErrorMode" data-toggle="collapse" data-target=".method_setErrorMode .collapse">
+<h2>Set the error mode E_SILENT, E_WARNING, E_EXCEPTION</h2>
+<pre>setErrorMode(int $error_mode) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$error_mode</h4>
+<code>int</code>
+</div>
+</div></div>
+</div>
+<a id="method_setLogging"></a><div class="element clickable method public method_setLogging" data-toggle="collapse" data-target=".method_setLogging .collapse">
+<h2>Logging to file enabled/disabled</h2>
+<pre>setLogging(bool $v) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$v</h4>
+<code>bool</code>
+</div>
+</div></div>
+</div>
+<a id="method_setPersistent"></a><div class="element clickable method public method_setPersistent" data-toggle="collapse" data-target=".method_setPersistent .collapse">
+<h2>Enable or disable persistent connection</h2>
+<pre>setPersistent(bool $persistent) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<table class="table table-bordered"><tr>
+<th>deprecated</th>
+<td></td>
+</tr></table>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$persistent</h4>
+<code>bool</code>
+</div>
+</div></div>
+</div>
+<a id="method_setVerbose"></a><div class="element clickable method public method_setVerbose" data-toggle="collapse" data-target=".method_setVerbose .collapse">
+<h2>Enabled/disabled verbose mode which echoes debug data</h2>
+<pre>setVerbose(bool $v) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$v</h4>
+<code>bool</code>
+</div>
+</div></div>
+</div>
+<a id="method_update"></a><div class="element clickable method public method_update" data-toggle="collapse" data-target=".method_update .collapse">
+<h2>update()
+        </h2>
+<pre>update($table_name, $condition, $col_val) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument"><h4>$table_name</h4></div>
+<div class="subelement argument"><h4>$condition</h4></div>
+<div class="subelement argument"><h4>$col_val</h4></div>
+</div></div>
+</div>
+<a id="method_useDb"></a><div class="element clickable method public method_useDb" data-toggle="collapse" data-target=".method_useDb .collapse">
+<h2>Select a database or change to a database</h2>
+<pre>useDb(string $db_name) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$db_name</h4>
+<code>string</code><p>database name</p></div>
+</div></div>
+</div>
+<a id="method_connect"></a><div class="element clickable method private method_connect" data-toggle="collapse" data-target=".method_connect .collapse">
+<h2>Connect to a MySQL database using the current settings</h2>
+<pre>connect() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_disconnect"></a><div class="element clickable method private method_disconnect" data-toggle="collapse" data-target=".method_disconnect .collapse">
+<h2>Disconnect by destroying the PDO object</h2>
+<pre>disconnect() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="method_isValidErrorMode"></a><div class="element clickable method private method_isValidErrorMode" data-toggle="collapse" data-target=".method_isValidErrorMode .collapse">
+<h2>Returns true if is valid error mode</h2>
+<pre>isValidErrorMode(int $e) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$e</h4>
+<code>int</code>
+</div>
+</div></div>
+</div>
+<a id="method_log"></a><div class="element clickable method private method_log" data-toggle="collapse" data-target=".method_log .collapse">
+<h2>Write a string of text to file</h2>
+<pre>log(string $tolog) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tolog</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method_say"></a><div class="element clickable method private method_say" data-toggle="collapse" data-target=".method_say .collapse">
+<h2>Print to stdout for debug</h2>
+<pre>say(string $tosay) </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description">
+<div class="long_description"></div>
+<h3>Parameters</h3>
+<div class="subelement argument">
+<h4>$tosay</h4>
+<code>string</code>
+</div>
+</div></div>
+</div>
+<a id="method_setPdoErrMode"></a><div class="element clickable method private method_setPdoErrMode" data-toggle="collapse" data-target=".method_setPdoErrMode .collapse">
+<h2>Sets the PDO ATTR_ERRMODE attribute based on the current
+value of $this-&gt;error_mode</h2>
+<pre>setPdoErrMode() </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-property"></i> Properties</h3>
+<a id="property_db_name"> </a><div class="element clickable property public property_db_name" data-toggle="collapse" data-target=".property_db_name .collapse">
+<h2></h2>
+<pre>$db_name : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_host"> </a><div class="element clickable property public property_host" data-toggle="collapse" data-target=".property_host .collapse">
+<h2></h2>
+<pre>$host : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_username"> </a><div class="element clickable property public property_username" data-toggle="collapse" data-target=".property_username .collapse">
+<h2></h2>
+<pre>$username : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_connected"> </a><div class="element clickable property private property_connected" data-toggle="collapse" data-target=".property_connected .collapse">
+<h2></h2>
+<pre>$connected : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_error_mode"> </a><div class="element clickable property private property_error_mode" data-toggle="collapse" data-target=".property_error_mode .collapse">
+<h2></h2>
+<pre>$error_mode : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_log_location"> </a><div class="element clickable property private property_log_location" data-toggle="collapse" data-target=".property_log_location .collapse">
+<h2></h2>
+<pre>$log_location </pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_logging"> </a><div class="element clickable property private property_logging" data-toggle="collapse" data-target=".property_logging .collapse">
+<h2></h2>
+<pre>$logging : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_password"> </a><div class="element clickable property private property_password" data-toggle="collapse" data-target=".property_password .collapse">
+<h2></h2>
+<pre>$password : string</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_pdo"> </a><div class="element clickable property private property_pdo" data-toggle="collapse" data-target=".property_pdo .collapse">
+<h2></h2>
+<pre>$pdo : <a href="http://php.net/manual/en/class.pdo.php">\PDO</a></pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_persistent"> </a><div class="element clickable property private property_persistent" data-toggle="collapse" data-target=".property_persistent .collapse">
+<h2></h2>
+<pre>$persistent : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="property_verbose"> </a><div class="element clickable property private property_verbose" data-toggle="collapse" data-target=".property_verbose .collapse">
+<h2></h2>
+<pre>$verbose : bool</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<h3>
+<i class="icon-custom icon-constant"></i> Constants</h3>
+<a id="constant_E_EXCEPTION"> </a><div class="element clickable constant  constant_E_EXCEPTION" data-toggle="collapse" data-target=".constant_E_EXCEPTION .collapse">
+<h2>Exception on error mode</h2>
+<pre>E_EXCEPTION : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_E_SILENT"> </a><div class="element clickable constant  constant_E_SILENT" data-toggle="collapse" data-target=".constant_E_SILENT .collapse">
+<h2>Hide all errors mode</h2>
+<pre>E_SILENT : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+<a id="constant_E_WARNING"> </a><div class="element clickable constant  constant_E_WARNING" data-toggle="collapse" data-target=".constant_E_WARNING .collapse">
+<h2>Warning on error mode</h2>
+<pre>E_WARNING : int</pre>
+<div class="labels"></div>
+<div class="row collapse"><div class="detail-description"><div class="long_description"></div></div></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="row"><footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
+            generated on 2013-07-23T19:33:16+02:00.<br></footer></div>
+</div>
+</body>
+</html>
