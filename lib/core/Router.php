@@ -8,8 +8,7 @@
 
 class Router extends Base{
     
-	#private $is_resolved;	#is_resolved true/false
-	
+
     private $controller_name;
     private $action_name;
 	
@@ -18,45 +17,48 @@ class Router extends Base{
 	
     public function __construct(){
         parent::__construct();
-		
-		#Defaults are set at construction to avoid repetition.
-        $this->controller_name = Settings::system_controller_default().'Controller';
-		$this->action_name = Settings::system_action_default().'Action';
+	#Defaults are set at construction to avoid repetition.
+	$this->controller_name = Settings::system_controller_default();
+	$this->action_name = Settings::system_action_default();
+	
     }
     
     public function resolveUrl(){
 		
-		#Determine Controller
+	#Determine Controller
         if(isset($_GET[Settings::system_querystring_holder()])){
 			
-			#Our internal querystring is held in a single get parameter defined in config.php
-			$querystring = $_GET[Settings::system_querystring_holder()];
-			if( strlen($querystring) !== 0 ){
-				$raw_arguments = explode('/',$querystring);
+		#Our internal querystring is held in a single get parameter defined in config.php
+		$querystring = $_GET[Settings::system_querystring_holder()];
+		echo $querystring;exit;
+		if( strlen($querystring) !== 0 ){
+			$raw_arguments = rtrim($querystring,'/');
+			$raw_arguments = explode('/',$querystring);
+		print_r($raw_arguments);
+			if(count($raw_arguments) == 1){
+				#controller only
+				#default action
+				$this->setControllerName(ucfirst($raw_arguments[0]));
 				
-				if(count($raw_arguments) == 1){
-					#controller only
-					#default action
-					$this->setControllerName(ucfirst($raw_arguments[0].'Controller'));
-					
-					unset($raw_arguments[0]);
-					$this->_arguments = $raw_arguments;
-					
-				}elseif(count($raw_arguments > 1)){
+				unset($raw_arguments[0]);
+				$this->_arguments = $raw_arguments;
 				
-					$this->setControllerName(ucfirst($raw_arguments[0].'Controller'));
-					$this->setActionName(lcfirst($raw_arguments[1].'Action'));
-					
-					unset($raw_arguments[0]);
-					unset($raw_arguments[1]);
-					$this->_arguments = array_values($raw_arguments);
-				}
-			}	
-		}
-		Logger::log('system','Controller: ' . $this->getControllerName());
-		Logger::log('system','Action: ' . $this->getActionName());
-		$arguments = print_r($this->_arguments, true);
-		Logger::log('system', 'Arguments: ' . $arguments);
+			}elseif(count($raw_arguments > 1)){
+			
+				$this->setControllerName(ucfirst($raw_arguments[0]));
+				$this->setActionName(lcfirst($raw_arguments[1]));
+				
+				unset($raw_arguments[0]);
+				unset($raw_arguments[1]);
+				$this->_arguments = array_values($raw_arguments);
+			}
+		}	
+	}
+	Logger::log('system','Controller: ' . $this->getControllerName());
+	Logger::log('system','Action: ' . $this->getActionName());
+	$arguments = print_r($this->_arguments, true);
+	Logger::log('system', 'Arguments: ' . $arguments);
+	
     }
 	
 	

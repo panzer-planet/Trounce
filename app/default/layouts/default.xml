@@ -1,31 +1,27 @@
 <?xml version="1.0"?>
-<layout>
+
+<layouts>
+  
+  <layout name="default">
+  
+    <block name="header">
+      <view>default/header</view>
+      <view>default/login_bar</view>
+    </block>
     
-    <!-- The Default layout
-        the first layout will always be the fallback
-        for all routes-->
-    <default_default> <!-- controllername_actionname -->
-	
-        <header><!-- The name of the area in the theme file -->
-            <view>header</view><!-- Inserting views into the area -->
-        </header>
-		
-        <content>
-            <view>default</view>
-        </content>
-        <footer>
-            
-        </footer>
-    </default_default>
-    
-    <!-- when this route is selected, the view of the content
-        block will change but header will use default as there
-        are no updates specified
-    -->
-        
-    <default_welcome>
-        <content>
-            <view>welcome</view>
-        </content>
-    </default_welcome>
-</layout>
+    <block name="content">
+      <view>default/default</view>
+    </block>
+    <block name="footer">
+      <view>default/footer</view>
+    </block>
+  </layout>
+
+  <!-- The action maps to the the first level -->
+  <layout name="about">
+    <block name="content">
+      <view>default/about</view>
+    </block>
+  </layout>
+  
+</layouts>

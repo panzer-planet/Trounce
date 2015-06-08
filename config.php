@@ -18,40 +18,37 @@
 $system_config = array(
 
     # System
-    'system_rewrite' 			=> 	true,	#requires mod_rewrite
-	'system_debug' 				=> 	true,
-	
-	'system_log_directory' 		=> 	ROOT . DS . 'logs' . DS,
-	'system_logging'			=> true,	# Ensure php has permissions to write here
-	'system_error_logging'		=> true,
-	'system_controller_default' => 'Default',
-	
-	'system_querystring_holder' => 	'url',
-	'system_action_default' => 'default',
-	
-	# Security
+    'system_rewrite' => true,	#requires mod_rewrite
+    'system_debug' => true,
+    
+    'system_log_directory' => ROOT . DS . 'logs' . DS,
+    'system_logging' => true,	# Ensure php has permissions to write here
+    'system_error_logging' => true,
+    'system_controller_default' => 'Default',
+    
+    'system_querystring_holder' => 'url',
+    'system_action_default' => 'default',
+        
+    # App
+    'app_folder' => 'default',
+    'app_theme' => 'default',
+    # DB
+    'db_host' => 'localhost',
+    'db_username' => 'web',
+    'db_password' => 'pw',
 
-	
-	# App
-	'app_folder' =>			'default',
-	
-	# DB
-	'db_host' => 			'localhost',
-	'db_username' => 		'web',
-	'db_password' => 		'pw',
-
-	
-	# Custom example
-	'my_setting' => 'some value',
-	/* This value is then readable using
-	 * 	
-	 *	Settings::my_setting()
-	 *
-	 * and writable using
-	 *
-	 *	Settings::my_settings('some other value');
-	 *
-	 * settings only support a single value per label
-	 * but his can be an array
-	 */
+    
+    # Custom example
+    'my_setting' => 'some value',
+    /* This value is then readable using
+      * 	
+      *	Settings::my_setting()
+      *
+      * and writable using
+      *
+      *	Settings::my_settings('some other value');
+      *
+      * settings only support a single value per label
+      * but his can be an array
+      */
 );

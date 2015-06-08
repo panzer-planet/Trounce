@@ -17,11 +17,21 @@ class Controller extends Base{
 	#what all controllers can do
 	
 	
-    public function showLayout($layout_name){
+    protected function showView(){
+	
+    }
+    
+    
+    protected function showLayout($layout_name){
+	
+	#require_once ROOT . DS . 'app' . DS . App::getName() . DS . 'themes' . DS . App::getTheme() .'.php';
+
         $layout = new Layout;
-        $layout->assembleLayout($layout_name);
-        #require_once 'App/'.$this->settings['application']['folder'].'/views/'.Registry::get('app_theme').'/default.php';
-        #assembleLayout
+        $render_list = $layout->assembleLayout($layout_name);
+        
+        
+        
+    
     }
 	
 	/**

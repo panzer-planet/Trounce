@@ -10,7 +10,7 @@
 class Trounce {
     
     public static function Run($config){
-        
+      
         #Put the global settings into the registry
         #Registry::set('settings',$settings);
 		Settings::load($config);

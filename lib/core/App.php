@@ -64,23 +64,24 @@ class App {
 	}
 	
 	public static function run(){
-	
+
 		Logger::log('system', 'Launching app: ' . self::getName());
 		
 		#Resolve URL
 		Logger::log('system', 'Resolving URL: ' . $_SERVER['QUERY_STRING']);
-		$router = new Router;
-		self::$_router = $router;
-		self::$_router->resolveUrl();
+		self::$_router = new Router;
 		
+		self::$_router->resolveUrl();
+		echo self::$_router->getActionName();exit;
 		#Initialise the controller
 		Logger::log('system','Initialising controller');
-		$controller_name = self::$_router->getControllerName();
+		$controller_name = self::$_router->getControllerName().'Controller';
+			
 		if($_controller = self::initController($controller_name)){
-
+		      
 			#Run the action code
-			$action_name = self::$_router->getActionName();
-			#$this->_controller->$action_name(); The way below might be faster
+			$action_name = self::$_router->getActionName().'Action';
+			
 			
 			if(method_exists($_controller,$action_name)){
 				Logger::log('system', 'Firing action: '.self::$_router->getActionName());
@@ -89,32 +90,33 @@ class App {
 				self::display404();
 			}
 		}else{
+		
 			self::display404();
 		}
 		
 		
-		#include $this->getThemePath();
-	}
 	
+	}
+	public static function dummy(){
+	  echo 'YES';
+	 }
 	private static function display404(){
 		header("HTTP/1.1 404 Not Found");
 		require_once ROOT . DS .'app'. DS . self::$name.'/error_pages/NotFound.php';
 	}
 	
 	private static function initController($controller_name){
-	
-		#echo ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php';exit;
-		#/*
+	    #might need to do a try catch here to get it to 404 correctly
 		if(!@include( ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php')){
-
+	
 			return false;
 		}else{
-			
+		
 			$controller = new $controller_name();
-			#$this->_controller->app = $this; #make the app available to the controller actions
+			
 			return $controller;
 		}
-		#*/
+		
 	}
 	
 	
