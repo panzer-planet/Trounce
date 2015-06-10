@@ -1,0 +1,100 @@
+<?php
+/**
+ * Trounce - Rapid development PHP framework 
+ * @copyrite Copyright (c) 2015,  Werner Roets
+ * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @author Werner Roets <cobolt.exe@gmail.com>
+ */
+
+class Layout extends Base{
+
+    private $filename;
+    private $view_list;
+    private $layout_name;
+    private $theme_name;
+    
+    public function __construct($layout_name){
+      $this->views_to_render = array();
+      $this->layout_name = $layout_name;
+    }
+    
+    public function renderLayout(){
+	    
+        $filename = ROOT . DS .'app' . DS .Settings::app_name(). DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
+        $default = ROOT . DS .'app' . DS .Settings::app_name(). DS . 'layouts' . DS .'default.xml';
+        $this->filename = $filename;
+        
+        
+        if(file_exists($filename)){
+            #specified layout
+            $this->view_list = $this->parseLayoutFile($filename);
+        }elseif(file_exists($default)){
+            #default fallback
+            $this->view_list = $this->parseLayoutFile($default);
+        }else{
+            die('COULD NOT FIND '.$filename.' OR THE DEFAULT LAYOUT');  
+        }
+        $this->renderTheme();
+	
+    }
+    
+    public function getViewList(){
+        return $this->view_list;
+    }
+    
+    private function addCss($filename){
+        
+        echo '<link href="http://'.$_SERVER['HTTP_HOST'].'/css/'.$filename.'">';
+    }
+    
+    private function addJs($filename){
+        echo '<script src="'.$_SERVER['HTTP_HOST'].'./js/'.$filename.'"></script>';
+    }
+    
+    private function showBlock($block_name){
+        if(isset($this->view_list[App::getRouter()->getActionName()][$block_name])){
+            $block = $this->view_list[App::getRouter()->getActionName()][$block_name];
+        }else{
+            $block = $this->view_list['default'][$block_name];
+        }
+      
+        foreach($block as $view){
+            if(file_exists(ROOT . DS . 'app' . DS . Settings::app_name() . DS . 'views' . DS . $view.'.php')){
+                require_once ROOT . DS . 'app' . DS . Settings::app_name() . DS . 'views' . DS . $view.'.php';
+            }else{
+                #File not found
+                echo '<div style="color: red;">VIEW NOT FOUND</div>';
+            }
+        }
+      
+    }
+    
+    private function renderTheme(){
+        if(file_exists(ROOT . DS . 'app'. DS .Settings::app_name(). DS .'themes'. DS .App::getTheme() .'.php')){
+            require_once ROOT . DS . 'app'. DS .Settings::app_name(). DS .'themes'. DS .App::getTheme() .'.php';
+        }else{
+            #File not found
+            die('THEME NOT FOUND');
+        }
+    }
+    
+    
+    private function parseLayoutFile($file_location){
+        $parsed_layout = array();
+        $layouts = simplexml_load_file($file_location);
+        $this->theme_name =  $layouts['theme'];
+        foreach($layouts as $element){
+            $action_name =  (string)$element['action'];
+            foreach($element->block as $block){
+                $block_name =  (string)$block['name'];
+                foreach($block->view as $view){
+                    $parsed_layout[$action_name][$block_name][] = (string)$view;
+                }
+            }
+        }
+        return $parsed_layout;
+	      
+    }
+ 
+    
+}

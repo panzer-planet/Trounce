@@ -8,20 +8,19 @@
 
 class App {
 	
-	private static $_router;
-	#private $_controller;			# The current controller object
-	private static $theme_name, $name, $title;	
+	private static $_router, $theme_name, $name, $title;	
 	
 	public static function getRouter(){
 		return self::$_router;
 	}
-	public static function setName($app_name){
+	private static function setName($app_name){
 		self::$name = $app_name;
 	}
 	
 	public static function getName(){
 		return self::$name;
 	}
+	
 	/**
 	 * Set the theme of the site
 	 * @param $theme_name the name of the theme
@@ -59,12 +58,12 @@ class App {
 	 * enabled app and theme
 	 **/
 	public static function getThemePath(){
-		return 'app/'.Settings::app_folder().'/themes/'.self::getTheme().'/index.php';
+		return ROOT . DS . 'app'. DS . Settings::app_folder(). DS .'themes'. DS .self::getTheme(). DS .'index.php';
 		
 	}
 	
-	public static function run(){
-
+	public static function run($app_name){
+		self::setName($app_name);
 		Logger::log('system', 'Launching app: ' . self::getName());
 		
 		#Resolve URL
@@ -72,7 +71,7 @@ class App {
 		self::$_router = new Router;
 		
 		self::$_router->resolveUrl();
-		echo self::$_router->getActionName();exit;
+		
 		#Initialise the controller
 		Logger::log('system','Initialising controller');
 		$controller_name = self::$_router->getControllerName().'Controller';
@@ -93,13 +92,8 @@ class App {
 		
 			self::display404();
 		}
-		
-		
-	
 	}
-	public static function dummy(){
-	  echo 'YES';
-	 }
+
 	private static function display404(){
 		header("HTTP/1.1 404 Not Found");
 		require_once ROOT . DS .'app'. DS . self::$name.'/error_pages/NotFound.php';
@@ -107,16 +101,13 @@ class App {
 	
 	private static function initController($controller_name){
 	    #might need to do a try catch here to get it to 404 correctly
-		if(!@include( ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php')){
-	
-			return false;
-		}else{
-		
-			$controller = new $controller_name();
-			
-			return $controller;
-		}
-		
+	    if(file_exists(ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php')){
+            require_once ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php';
+            $controller = new $controller_name();
+        return $controller;
+	    }else{
+            return false;
+	    }
 	}
 	
 	

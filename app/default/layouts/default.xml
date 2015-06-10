@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<layouts>
+<layouts theme='default'>
   
-  <layout name="default">
+  <layout action="default">
   
     <block name="header">
       <view>default/header</view>
-      <view>default/login_bar</view>
+      <view>default/menu</view>
     </block>
     
     <block name="content">
@@ -18,7 +18,7 @@
   </layout>
 
   <!-- The action maps to the the first level -->
-  <layout name="about">
+  <layout action="about">
     <block name="content">
       <view>default/about</view>
     </block>

@@ -30,8 +30,8 @@ $system_config = array(
     'system_action_default' => 'default',
         
     # App
-    'app_folder' => 'default',
-    'app_theme' => 'default',
+    'app_name' => 'default',
+    
     # DB
     'db_host' => 'localhost',
     'db_username' => 'web',

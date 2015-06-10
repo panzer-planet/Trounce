@@ -13,11 +13,11 @@ class Trounce {
       
         #Put the global settings into the registry
         #Registry::set('settings',$settings);
-		Settings::load($config);
+        Settings::load($config);
                
         #If debugging is on, notify the user
         if($config['system_debug']){
-            echo 'Debugging is on';
+         #   echo '<div style="border: 1px solid black;">Debugging is on</div>';
 			ini_set('display_errors',1);
         }
         
@@ -27,7 +27,7 @@ class Trounce {
 		Logger::log_no_timestamp('system','##########################################');
 	
         #Include the app's main file
-        require_once ROOT . DS . 'app'. DS . $config['app_folder'].'/index.php';
+        require_once ROOT . DS . 'app'. DS . Settings::app_name(). DS . 'index.php';
     }
 }
 

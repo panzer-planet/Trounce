@@ -1,489 +1,939 @@
-<!DOCTYPE html><html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
-<meta charset="utf-8">
-<title>phpDocumentor » \A</title>
-<meta name="author" content="Mike van Riel">
-<meta name="description" content="">
-<link href="../css/template.css" rel="stylesheet" media="all">
-<script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script><script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script><script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script><script src="../js/bootstrap.js" type="text/javascript"></script><script src="../js/template.js" type="text/javascript"></script><script src="../js/prettify/prettify.min.js" type="text/javascript"></script><link rel="shortcut icon" href="../img/favicon.ico">
-<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
-<link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png">
-<link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>API Documentation</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    <script type="text/javascript">
+    function loadExternalCodeSnippets() {
+        Array.prototype.slice.call(document.querySelectorAll('pre[data-src]')).forEach(function (pre) {
+            var src = pre.getAttribute('data-src');
+            var extension = (src.match(/\.(\w+)$/) || [, ''])[1];
+            var language = 'php';
+
+            var code = document.createElement('code');
+            code.className = 'language-' + language;
+
+            pre.textContent = '';
+
+            code.textContent = 'Loading…';
+
+            pre.appendChild(code);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('GET', src, true);
+
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4) {
+
+                    if (xhr.status < 400 && xhr.responseText) {
+                        code.textContent = xhr.responseText;
+
+                        Prism.highlightElement(code);
+                    }
+                    else if (xhr.status >= 400) {
+                        code.textContent = '✖ Error ' + xhr.status + ' while fetching file: ' + xhr.statusText;
+                    }
+                    else {
+                        code.textContent = '✖ Error: File does not exist or is empty';
+                    }
+                }
+            };
+
+            xhr.send(null);
+        });
+    }
+
+    $(document).ready(function(){
+        loadExternalCodeSnippets();
+    });
+    $('#source-view').on('shown', function () {
+        loadExternalCodeSnippets();
+    })
+</script>
+
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
 </head>
 <body>
+
 <div class="navbar navbar-fixed-top">
-<div class="navbar-inner"><div class="container">
-<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse"><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></a><a class="brand" href="../index.html">phpDocumentor</a><div class="nav-collapse"><ul class="nav">
-<li class="dropdown">
-<a href="#api" class="dropdown-toggle" data-toggle="dropdown">
-                                    API Documentation <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a>Packages</a></li>
-<li><a href="../packages/Default.html"><i class="icon-folder-open"></i> Default</a></li>
-<li><a href="../packages/lib-cobolt.html"><i class="icon-folder-open"></i> lib-cobolt</a></li>
-</ul>
-</li>
-<li class="dropdown" id="charts-menu">
-<a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
-                                    Charts <b class="caret"></b></a><ul class="dropdown-menu"><li><a href="../graph_class.html"><i class="icon-list-alt"></i> Class hierarchy diagram</a></li></ul>
-</li>
-<li class="dropdown" id="reports-menu">
-<a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
-                                    Reports <b class="caret"></b></a><ul class="dropdown-menu">
-<li><a href="../errors.html"><i class="icon-remove-sign"></i> Errors 
-                <span class="label label-info">155</span></a></li>
-<li><a href="../markers.html"><i class="icon-map-marker"></i> Markers 
-                <ul></ul></a></li>
-<li><a href="../deprecated.html"><i class="icon-stop"></i> Deprecated elements 
-                <span class="label label-info">1</span></a></li>
-</ul>
-</li>
-</ul></div>
-</div></div>
-<div class="go_to_top"><a href="#___" style="color: inherit">Back to top  <i class="icon-upload icon-white"></i></a></div>
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">API Documentation</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">247</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">1</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
 </div>
-<div id="___" class="container">
-<noscript><div class="alert alert-warning">
-                            Javascript is disabled; several features are only available
-                            if Javascript is enabled.
-                        </div></noscript>
-<div class="row">
-<div class="span4">
-<span class="btn-group visibility" data-toggle="buttons-checkbox"><button class="btn public active" title="Show public elements">Public</button><button class="btn protected" title="Show protected elements">Protected</button><button class="btn private" title="Show private elements">Private</button><button class="btn inherited active" title="Show inherited elements">Inherited</button></span><div class="btn-group view pull-right" data-toggle="buttons-radio">
-<button class="btn details" title="Show descriptions and method names"><i class="icon-list"></i></button><button class="btn simple" title="Show only method names"><i class="icon-align-justify"></i></button>
-</div>
-<ul class="side-nav nav nav-list">
-<li class="nav-header">
-<i class="icon-custom icon-method"></i> Methods
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1217383290"></a>
+                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-1217383290" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                    
                     <ul>
-<li class="method public inherited"><a href="#method___call" title="__call :: "><span class="description">__call()
-        </span><pre>__call()</pre></a></li>
-<li class="method public "><a href="#method___construct" title="__construct :: "><span class="description">__construct()
-        </span><pre>__construct()</pre></a></li>
-<li class="method public inherited"><a href="#method___get" title="__get :: "><span class="description">__get()
-        </span><pre>__get()</pre></a></li>
-<li class="method public inherited"><a href="#method___set" title="__set :: "><span class="description">__set()
-        </span><pre>__set()</pre></a></li>
-<li class="method public inherited"><a href="#method_attr" title="attr :: "><span class="description">attr()
-        </span><pre>attr()</pre></a></li>
-<li class="method public inherited"><a href="#method_attrs" title="attrs :: "><span class="description">attrs()
-        </span><pre>attrs()</pre></a></li>
-<li class="method public inherited"><a href="#method_render" title="render :: "><span class="description">render()
-        </span><pre>render()</pre></a></li>
-<li class="method public inherited"><a href="#method_rmAttr" title="rmAttr :: "><span class="description">rmAttr()
-        </span><pre>rmAttr()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header protected">» Protected
-                    <ul>
-<li class="method protected inherited"><a href="#method_getChildHtml" title="getChildHtml :: "><span class="description">getChildHtml()
-        </span><pre>getChildHtml()</pre></a></li>
-<li class="method protected inherited"><a href="#method_toHtml" title="toHtml :: "><span class="description">toHtml()
-        </span><pre>toHtml()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header private">» Private
-                    <ul>
-<li class="method private inherited"><a href="#method_attributeToHtml" title="attributeToHtml :: "><span class="description">attributeToHtml()
-        </span><pre>attributeToHtml()</pre></a></li>
-<li class="method private inherited"><a href="#method_attrsToString" title="attrsToString :: "><span class="description">attrsToString()
-        </span><pre>attrsToString()</pre></a></li>
-</ul>
-</li>
-<li class="nav-header">
-<i class="icon-custom icon-property"></i> Properties
-                    <ul></ul>
-</li>
-<li class="nav-header protected">» Protected
-                    <ul>
-<li class="property protected inherited"><a href="#property_inner_html" title="$inner_html :: "><span class="description"></span><pre>$inner_html</pre></a></li>
-<li class="property protected inherited"><a href="#property_self_closing" title="$self_closing :: "><span class="description"></span><pre>$self_closing</pre></a></li>
-<li class="property protected inherited"><a href="#property_tag" title="$tag :: "><span class="description"></span><pre>$tag</pre></a></li>
-</ul>
-</li>
-<li class="nav-header private">» Private
-                    <ul>
-<li class="property private inherited"><a href="#property_attributes" title="$attributes :: "><span class="description"></span><pre>$attributes</pre></a></li>
-<li class="property private inherited"><a href="#property_html" title="$html :: "><span class="description"></span><pre>$html</pre></a></li>
-</ul>
-</li>
-</ul>
+                                                                                                    <li class="class"><a href="../classes/A.html">A</a></li>
+                                                    <li class="class"><a href="../classes/App.html">App</a></li>
+                                                    <li class="class"><a href="../classes/Base.html">Base</a></li>
+                                                    <li class="class"><a href="../classes/Br.html">Br</a></li>
+                                                    <li class="class"><a href="../classes/Checkbox.html">Checkbox</a></li>
+                                                    <li class="class"><a href="../classes/Controller.html">Controller</a></li>
+                                                    <li class="class"><a href="../classes/Db.html">Db</a></li>
+                                                    <li class="class"><a href="../classes/DbCouldNotConnectException.html">DbCouldNotConnectException</a></li>
+                                                    <li class="class"><a href="../classes/DbCouldNotCreateDatabaseException.html">DbCouldNotCreateDatabaseException</a></li>
+                                                    <li class="class"><a href="../classes/DbCouldNotCreateTableException.html">DbCouldNotCreateTableException</a></li>
+                                                    <li class="class"><a href="../classes/DbDoesNotExistException.html">DbDoesNotExistException</a></li>
+                                                    <li class="class"><a href="../classes/DbException.html">DbException</a></li>
+                                                    <li class="class"><a href="../classes/DbInvalidErrorModeException.html">DbInvalidErrorModeException</a></li>
+                                                    <li class="class"><a href="../classes/DbNoDatabaseSelectedException.html">DbNoDatabaseSelectedException</a></li>
+                                                    <li class="class"><a href="../classes/DefaultController.html">DefaultController</a></li>
+                                                    <li class="class"><a href="../classes/DefaultModel.html">DefaultModel</a></li>
+                                                    <li class="class"><a href="../classes/ExampleController.html">ExampleController</a></li>
+                                                    <li class="class"><a href="../classes/FileInput.html">FileInput</a></li>
+                                                    <li class="class"><a href="../classes/Form.html">Form</a></li>
+                                                    <li class="class"><a href="../classes/Hr.html">Hr</a></li>
+                                                    <li class="class"><a href="../classes/Html.html">Html</a></li>
+                                                    <li class="class"><a href="../classes/HtmlElement.html">HtmlElement</a></li>
+                                                    <li class="class"><a href="../classes/HtmlException.html">HtmlException</a></li>
+                                                    <li class="class"><a href="../classes/Img.html">Img</a></li>
+                                                    <li class="class"><a href="../classes/Input.html">Input</a></li>
+                                                    <li class="class"><a href="../classes/InvalidConstructorArgumentException.html">InvalidConstructorArgumentException</a></li>
+                                                    <li class="class"><a href="../classes/Layout.html">Layout</a></li>
+                                                    <li class="class"><a href="../classes/Logger.html">Logger</a></li>
+                                                    <li class="class"><a href="../classes/LoginForm.html">LoginForm</a></li>
+                                                    <li class="class"><a href="../classes/Model.html">Model</a></li>
+                                                    <li class="class"><a href="../classes/MySQL.html">MySQL</a></li>
+                                                    <li class="class"><a href="../classes/Radio.html">Radio</a></li>
+                                                    <li class="class"><a href="../classes/RegisterForm.html">RegisterForm</a></li>
+                                                    <li class="class"><a href="../classes/Registry.html">Registry</a></li>
+                                                    <li class="class"><a href="../classes/Routelink.html">Routelink</a></li>
+                                                    <li class="class"><a href="../classes/Router.html">Router</a></li>
+                                                    <li class="class"><a href="../classes/Security.html">Security</a></li>
+                                                    <li class="class"><a href="../classes/SelfClosing.html">SelfClosing</a></li>
+                                                    <li class="class"><a href="../classes/Session.html">Session</a></li>
+                                                    <li class="class"><a href="../classes/Settings.html">Settings</a></li>
+                                                    <li class="class"><a href="../classes/SimpleElement.html">SimpleElement</a></li>
+                                                    <li class="class"><a href="../classes/Submit.html">Submit</a></li>
+                                                    <li class="class"><a href="../classes/Table.html">Table</a></li>
+                                                    <li class="class"><a href="../classes/Trounce.html">Trounce</a></li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <nav>
+                                                <a href="../namespaces/default.html">\</a> <i class="icon-level-up"></i>
+                                            </nav>
+                    <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal"><i class="icon-code"></i></a>
+
+                    <h1><small>\</small>A</h1>
+                    <p><em>lib-cobolt A class</em></p>
+                    <p>This class provides anchor link creation</p>
+                    
+                                        
+                    <section id="summary">
+                        <h2>Summary</h2>
+                        <section class="row-fluid heading">
+                            <section class="span4">
+                                <a href="#methods">Methods</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#properties">Properties</a>
+                            </section>
+                            <section class="span4">
+                                <a href="#constants">Constants</a>
+                            </section>
+                        </section>
+                        <section class="row-fluid public">
+                            <section class="span4">
+                                                                    <a href="../classes/A.html#method___construct" class="">__construct()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method___get" class="">__get()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method___set" class="">__set()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method___call" class="">__call()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method_render" class="">render()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method_attr" class="">attr()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method_attrs" class="">attrs()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method_rmAttr" class="">rmAttr()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No public properties found</em>
+                                                            </section>
+                            <section class="span4">
+                                                                    <em>No constants found</em>
+                                                            </section>
+                        </section>
+                        <section class="row-fluid protected">
+                            <section class="span4">
+                                                                    <a href="../classes/HtmlElement.html#method_getChildHtml" class="">getChildHtml()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method_toHtml" class="">toHtml()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/HtmlElement.html#property_tag" class="">$tag</a><br />
+                                                                    <a href="../classes/HtmlElement.html#property_inner_html" class="">$inner_html</a><br />
+                                                                    <a href="../classes/HtmlElement.html#property_self_closing" class="">$self_closing</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                        <section class="row-fluid private">
+                            <section class="span4">
+                                                                    <a href="../classes/HtmlElement.html#method_attributeToHtml" class="">attributeToHtml()</a><br />
+                                                                    <a href="../classes/HtmlElement.html#method_attrsToString" class="">attrsToString()</a><br />
+                                                            </section>
+                            <section class="span4">
+                                                                    <a href="../classes/HtmlElement.html#property_html" class="">$html</a><br />
+                                                                    <a href="../classes/HtmlElement.html#property_attributes" class="">$attributes</a><br />
+                                                            </section>
+                            <section class="span4">
+                                <em>N/A</em>
+                            </section>
+                        </section>
+                    </section>
+                </div>
+                <aside class="span4 detailsbar">
+                                        
+                    
+                    <dl>
+                        <dt>File</dt>
+                            <dd><a href="../files/lib.html.SimpleElement.A.html"><div class="path-wrapper">lib/html/SimpleElement/A.php</div></a></dd>
+                                                <dt>Package</dt>
+                            <dd><div class="namespace-wrapper">lib-cobolt\Html</div></dd>
+                                                <dt>Class hierarchy</dt>
+                            <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+                                        <div class="namespace-wrapper"><a href="../classes/HtmlElement.html">\HtmlElement</a></div>
+                                                                    
+                                        <div class="namespace-wrapper"><a href="../classes/SimpleElement.html">\SimpleElement</a></div>
+                                                                                                    <div class="namespace-wrapper">\A</div>
+                            </dd>
+
+                        
+                        
+                        
+                        
+                                                                        </dl>
+                    <h2>Tags</h2>
+                    <table class="table table-condensed">
+                                            <tr>
+                            <th>
+                                author
+                            </th>
+                            <td>
+                                                                    <p>Werner Roets <a href="mailto:cobolt.exe@gmail.com">cobolt.exe@gmail.com</a></p>
+                                                            </td>
+                        </tr>
+                                            <tr>
+                            <th>
+                                copyright
+                            </th>
+                            <td>
+                                                                    <p>2013 Werner Roets</p>
+                                                            </td>
+                        </tr>
+                                        </table>
+                </aside>
+            </div>
+
+                        
+                                    <a id="properties" name="properties"></a>
+            <div class="row-fluid">
+                <div class="span8 content class">
+                    <h2>Properties</h2>
+                </div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_tag" name="property_tag" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$tag</h3>
+                <pre class="signature">$tag : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_inner_html" name="property_inner_html" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$inner_html</h3>
+                <pre class="signature">$inner_html : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_self_closing" name="property_self_closing" class="anchor"></a>
+            <article class="property">
+                <h3 class="protected ">$self_closing</h3>
+                <pre class="signature">$self_closing : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_html" name="property_html" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$html</h3>
+                <pre class="signature">$html : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="property_attributes" name="property_attributes" class="anchor"></a>
+            <article class="property">
+                <h3 class="private ">$attributes</h3>
+                <pre class="signature">$attributes : </pre>
+                <p><em></em></p>
+                
+
+                                <h4>Type</h4>
+                
+                                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                        <dl>
+                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                            
+                                    <a id="methods" name="methods"></a>
+            <div class="row-fluid">
+                <div class="span8 content class"><h2>Methods</h2></div>
+                <aside class="span4 detailsbar"></aside>
+            </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___construct" name="method___construct" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__construct()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__construct(  <span class="argument">$arguments</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$arguments </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___get" name="method___get" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__get()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__get(  <span class="argument">$name</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___set" name="method___set" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__set()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__set(  <span class="argument">$name</span>,   <span class="argument">$value</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method___call" name="method___call" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">__call()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">__call(  <span class="argument">$name</span>,   <span class="argument">$value</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_render" name="method_render" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">render()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">render() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_attr" name="method_attr" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">attr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">attr(  <span class="argument">$name</span>,   <span class="argument">$val</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$val </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_attrs" name="method_attrs" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">attrs()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">attrs(  <span class="argument">$attrs</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$attrs </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_rmAttr" name="method_rmAttr" class="anchor"></a>
+            <article class="method">
+                <h3 class="public ">rmAttr()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">rmAttr(  <span class="argument">$name</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_getChildHtml" name="method_getChildHtml" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">getChildHtml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">getChildHtml() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_toHtml" name="method_toHtml" class="anchor"></a>
+            <article class="method">
+                <h3 class="protected ">toHtml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">toHtml() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_attributeToHtml" name="method_attributeToHtml" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">attributeToHtml()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">attributeToHtml(  <span class="argument">$name</span>,   <span class="argument">$value</span>) </pre>
+                <p><em></em></p>
+                
+
+                                    <h4>Parameters</h4>
+                    <table class="table table-condensed table-hover">
+                                                    <tr>
+                                <td></td>
+                                <td>$name </td>
+                                <td></td>
+                            </tr>
+                                                    <tr>
+                                <td></td>
+                                <td>$value </td>
+                                <td></td>
+                            </tr>
+                                            </table>
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                            <span class="label label-info">static</span>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    <div class="row-fluid">
+        <div class="span8 content class">
+            <a id="method_attrsToString" name="method_attrsToString" class="anchor"></a>
+            <article class="method">
+                <h3 class="private ">attrsToString()</h3>
+                <a href="#source-view" role="button" class="pull-right btn" data-toggle="modal" style="font-size: 1.1em; padding: 9px 14px"><i class="icon-code"></i></a>
+                <pre class="signature" style="margin-right: 54px;">attrsToString() </pre>
+                <p><em></em></p>
+                
+
+                
+                
+                				
+                            </article>
+        </div>
+        <aside class="span4 detailsbar">
+            <h1><i class="icon-arrow-down"></i></h1>
+                                                            <dl>
+                                                    <dt>Inherited from</dt>
+                    <dd><a href="../classes/HtmlElement.html"><div class="path-wrapper">\HtmlElement</div></a></dd>
+                                                            </dl>
+            <h2>Tags</h2>
+            <table class="table table-condensed">
+                                    <tr><td colspan="2"><em>None found</em></td></tr>
+                            </table>
+        </aside>
+    </div>
+
+                                    </div>
+    </section>
+
+    <div id="source-view" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="source-view-label" aria-hidden="true">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h3 id="source-view-label">A.php</h3>
+        </div>
+        <div class="modal-body">
+            <pre data-src="../files/lib/html/SimpleElement/A.php.txt" class="language-php line-numbers"></pre>
+        </div>
+    </div>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on June 10th, 2015 at 21:15.
+                </section>
+            </section>
+        </section>
+    </footer>
 </div>
-<div class="span8">
-<a id="\A"></a><ul class="breadcrumb">
-<li>
-<a href="../index.html"><i class="icon-custom icon-class"></i></a><span class="divider">\</span>
-</li>
-<li><a href="../namespaces/global.html">global</a></li>
-<li class="active">
-<span class="divider">\</span><a href="../classes/A.html">A</a>
-</li>
-</ul>
-<div class="element class">
-<p class="short_description">lib-cobolt A class</p>
-<div class="details">
-<div class="long_description"><p>This class provides anchor link creation</p></div>
-<table class="table table-bordered">
-<tr>
-<th>package</th>
-<td><a href="../packages/lib-cobolt.Html.html">lib-cobolt</a></td>
-</tr>
-<tr>
-<th>subpackage</th>
-<td>Html</td>
-</tr>
-<tr>
-<th>author</th>
-<td><a href="mailto:cobolt.exe@gmail.com">Werner Roets</a></td>
-</tr>
-<tr>
-<th>copyright</th>
-<td>2013 Werner Roets</td>
-</tr>
-</table>
-<h3>
-<i class="icon-custom icon-method"></i> Methods</h3>
-<a id="method___call"></a><div class="element clickable method public method___call" data-toggle="collapse" data-target=".method___call .collapse">
-<h2>__call()
-        </h2>
-<pre>__call($name, $value) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::__call()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::__call()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-<div class="subelement argument"><h4>$value</h4></div>
-</div></div>
-</div>
-<a id="method___construct"></a><div class="element clickable method public method___construct" data-toggle="collapse" data-target=".method___construct .collapse">
-<h2>__construct()
-        </h2>
-<pre>__construct($arguments) </pre>
-<div class="labels"></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$arguments</h4></div>
-</div></div>
-</div>
-<a id="method___get"></a><div class="element clickable method public method___get" data-toggle="collapse" data-target=".method___get .collapse">
-<h2>__get()
-        </h2>
-<pre>__get($name) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::__get()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::__get()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-</div></div>
-</div>
-<a id="method___set"></a><div class="element clickable method public method___set" data-toggle="collapse" data-target=".method___set .collapse">
-<h2>__set()
-        </h2>
-<pre>__set($name, $value) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::__set()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::__set()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-<div class="subelement argument"><h4>$value</h4></div>
-</div></div>
-</div>
-<a id="method_attr"></a><div class="element clickable method public method_attr" data-toggle="collapse" data-target=".method_attr .collapse">
-<h2>attr()
-        </h2>
-<pre>attr($name, $val) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::attr()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::attr()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-<div class="subelement argument"><h4>$val</h4></div>
-</div></div>
-</div>
-<a id="method_attrs"></a><div class="element clickable method public method_attrs" data-toggle="collapse" data-target=".method_attrs .collapse">
-<h2>attrs()
-        </h2>
-<pre>attrs($attrs) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::attrs()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::attrs()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$attrs</h4></div>
-</div></div>
-</div>
-<a id="method_render"></a><div class="element clickable method public method_render" data-toggle="collapse" data-target=".method_render .collapse">
-<h2>render()
-        </h2>
-<pre>render() </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::render()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::render()</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="method_rmAttr"></a><div class="element clickable method public method_rmAttr" data-toggle="collapse" data-target=".method_rmAttr .collapse">
-<h2>rmAttr()
-        </h2>
-<pre>rmAttr($name) </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::rmAttr()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::rmAttr()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-</div></div>
-</div>
-<a id="method_getChildHtml"></a><div class="element clickable method protected method_getChildHtml" data-toggle="collapse" data-target=".method_getChildHtml .collapse">
-<h2>getChildHtml()
-        </h2>
-<pre>getChildHtml() </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::getChildHtml()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::getChildHtml()</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="method_toHtml"></a><div class="element clickable method protected method_toHtml" data-toggle="collapse" data-target=".method_toHtml .collapse">
-<h2>toHtml()
-        </h2>
-<pre>toHtml() </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::toHtml()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::toHtml()</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="method_attributeToHtml"></a><div class="element clickable method private method_attributeToHtml" data-toggle="collapse" data-target=".method_attributeToHtml .collapse">
-<h2>attributeToHtml()
-        </h2>
-<pre>attributeToHtml($name, $value) </pre>
-<div class="labels">
-<span class="label">Inherited</span><span class="label">Static</span>
-</div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::attributeToHtml()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::attributeToHtml()</td>
-</tr>
-</table>
-<h3>Parameters</h3>
-<div class="subelement argument"><h4>$name</h4></div>
-<div class="subelement argument"><h4>$value</h4></div>
-</div></div>
-</div>
-<a id="method_attrsToString"></a><div class="element clickable method private method_attrsToString" data-toggle="collapse" data-target=".method_attrsToString .collapse">
-<h2>attrsToString()
-        </h2>
-<pre>attrsToString() </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::attrsToString()</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::attrsToString()</td>
-</tr>
-</table>
-</div></div>
-</div>
-<h3>
-<i class="icon-custom icon-property"></i> Properties</h3>
-<a id="property_inner_html"> </a><div class="element clickable property protected property_inner_html" data-toggle="collapse" data-target=".property_inner_html .collapse">
-<h2></h2>
-<pre>$inner_html </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::$$inner_html</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::$$inner_html</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_self_closing"> </a><div class="element clickable property protected property_self_closing" data-toggle="collapse" data-target=".property_self_closing .collapse">
-<h2></h2>
-<pre>$self_closing </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::$$self_closing</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::$$self_closing</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_tag"> </a><div class="element clickable property protected property_tag" data-toggle="collapse" data-target=".property_tag .collapse">
-<h2></h2>
-<pre>$tag </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::$$tag</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::$$tag</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_attributes"> </a><div class="element clickable property private property_attributes" data-toggle="collapse" data-target=".property_attributes .collapse">
-<h2></h2>
-<pre>$attributes </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::$$attributes</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::$$attributes</td>
-</tr>
-</table>
-</div></div>
-</div>
-<a id="property_html"> </a><div class="element clickable property private property_html" data-toggle="collapse" data-target=".property_html .collapse">
-<h2></h2>
-<pre>$html </pre>
-<div class="labels"><span class="label">Inherited</span></div>
-<div class="row collapse"><div class="detail-description">
-<div class="long_description"></div>
-<table class="table table-bordered">
-<tr>
-<th>inherited_from</th>
-<td>\HtmlElement::$$html</td>
-</tr>
-<tr>
-<th>inherited_from</th>
-<td>\SimpleElement::$$html</td>
-</tr>
-</table>
-</div></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div class="row"><footer class="span12">
-            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by <a href="http://glyphicons.com/">Glyphicons</a>.<br>
-            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor 2.0.0a12</a> and<br>
-            generated on 2013-07-23T19:33:16+02:00.<br></footer></div>
-</div>
+
 </body>
 </html>

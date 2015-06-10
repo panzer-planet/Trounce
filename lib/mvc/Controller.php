@@ -12,25 +12,12 @@ class Controller extends Base{
 	
     public function __construct(){
         parent::__construct();
-		#$this->_app = $app;
     }
-	#what all controllers can do
-	
-	
-    protected function showView(){
-	
-    }
-    
-    
+	    
     protected function showLayout($layout_name){
-	
-	#require_once ROOT . DS . 'app' . DS . App::getName() . DS . 'themes' . DS . App::getTheme() .'.php';
-
-        $layout = new Layout;
-        $render_list = $layout->assembleLayout($layout_name);
-        
-        
-        
+     
+        $layout = new Layout($layout_name);
+        $render_list = $layout->renderLayout();        
     
     }
 	
