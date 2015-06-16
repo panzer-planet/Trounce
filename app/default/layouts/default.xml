@@ -24,4 +24,11 @@
     </block>
   </layout>
   
+  <layout action="contact">
+      <block name="content">
+      <view>default/contact</view>
+    </block>
+
+  </layout>
+  
 </layouts>

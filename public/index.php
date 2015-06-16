@@ -35,9 +35,14 @@ function __autoload($class_name){
 }
 
 # Begin
+
 Trounce::Run($system_config);
 
+echo "<pre>";print_r($GLOBALS);
+
 $total_time = round(microtime() - $system_time_start, 4);
+
 if($system_config['system_debug']){ 
     echo 'Page generated in '. $total_time . ' seconds.';
 }
+

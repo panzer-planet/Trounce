@@ -75,7 +75,7 @@ class App {
 		#Initialise the controller
 		Logger::log('system','Initialising controller');
 		$controller_name = self::$_router->getControllerName().'Controller';
-			
+        
 		if($_controller = self::initController($controller_name)){
 		      
 			#Run the action code
@@ -84,7 +84,12 @@ class App {
 			
 			if(method_exists($_controller,$action_name)){
 				Logger::log('system', 'Firing action: '.self::$_router->getActionName());
-				call_user_func(array($_controller, $action_name));
+                   
+				if(self::$_router->getArguments()){
+                    call_user_func_array(array($_controller, $action_name),self::$_router->getArguments());
+                }else{
+                    call_user_func(array($_controller, $action_name));
+                }
 			}else{
 				self::display404();
 			}

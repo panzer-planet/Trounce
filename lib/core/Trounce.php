@@ -16,7 +16,7 @@ class Trounce {
         Settings::load($config);
                
         #If debugging is on, notify the user
-        if($config['system_debug']){
+        if($system_config['system_debug']){
          #   echo '<div style="border: 1px solid black;">Debugging is on</div>';
 			ini_set('display_errors',1);
         }

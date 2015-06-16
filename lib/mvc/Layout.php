@@ -64,7 +64,7 @@ class Layout extends Base{
         return $views;
         
     }
-    
+
     
     private function showBlock($block_name){
         $views = array();

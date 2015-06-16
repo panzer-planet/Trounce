@@ -18,7 +18,7 @@
 $system_config = array(
 
     # System
-    'system_rewrite' => true,	#requires mod_rewrite
+    'system_rewrite' => true,	#requires mod_rewrite #deprecated (mod_rewrite)
     'system_debug' => true,
     
     'system_log_directory' => ROOT . DS . 'logs' . DS,

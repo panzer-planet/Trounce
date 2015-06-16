@@ -7,6 +7,4 @@
  */
 
 
-
-#App::setName('default');
 App::run(Settings::app_name());

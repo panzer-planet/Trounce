@@ -16,13 +16,19 @@ class DefaultController extends Controller{
 
     #Actions must be public functions containing the Action suffix
 	public function defaultAction(){
-	 
+
 		
 	    App::setTheme('default');//assumed default
 	    $this->showLayout('default');
 	}
 	
 	public function aboutAction(){
+	
+	
 	  $this->showLayout('default');
 	}
+	
+	public function contactAction(){
+        $this->showLayout('default');
+    }
 }

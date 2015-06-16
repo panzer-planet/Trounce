@@ -12,6 +12,8 @@ class Controller extends Base{
 	
     public function __construct(){
         parent::__construct();
+        # Nothing should go here because otherwise
+        # controllers will all need a __construct
     }
 	    
     protected function showLayout($layout_name){

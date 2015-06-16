@@ -11,40 +11,55 @@ class Router extends Base{
 
     private $controller_name;
     private $action_name;
-    private $_arguments = array();
+    private $arguments = array();
 	
     public function __construct(){
+        
+        # Defaults are set at construction to avoid repetition
         parent::__construct();
-        #Defaults are set at construction to avoid repetition.
         $this->controller_name = Settings::system_controller_default();
         $this->action_name = Settings::system_action_default();
-	
+        $this->arguments = array();
     }
-    
+    /**
+     * This function extracts information from the query string
+     * to pass to Trounce for processing
+     */
     public function resolveUrl(){
+    
+        # If there is nothing in the specified $_GET variable
+        # we skip everything and it will default to the correct route
 		if(isset($_GET[Settings::system_querystring_holder()])){
                 
-            #Our internal querystring is held in a single get parameter defined in config.php
+            # Our internal querystring is held in a single get parameter defined in config.php
             $querystring = $_GET[Settings::system_querystring_holder()];
-            #echo $querystring;exit;
+          
+            # If the querystring is present but empty we skip
+            # everything and the it will fall onto defaults
             if( strlen($querystring) !== 0 ){
-                $raw_arguments = rtrim($querystring,'/');
+            
+                # Trim off any trailing slashes otherwise explode
+                # will contain an empty element at the end
+                $querystring = rtrim($querystring,'/');
+                
+                # Create array of raw arguments
                 $raw_arguments = explode('/',$querystring);
-
+                
+                # If there is a controller but no action specified
+                # the default action is used
                 if(count($raw_arguments) == 1){
-                    #controller only
-                    #default action
-                    $this->setControllerName(ucfirst($raw_arguments[0]));
-                    
-                    unset($raw_arguments[0]);
-                    $this->_arguments = $raw_arguments;
-                    
+
+                    $this->setControllerName(ucfirst($raw_arguments[0]));                   
+                 
+                # If there are two or more arguments then
+                # both controller and action are set
                 }elseif(count($raw_arguments > 1)){
                 
                     $this->setControllerName(ucfirst($raw_arguments[0]));
-                    if($raw_arguments[1] != ""){
-                        $this->setActionName(lcfirst($raw_arguments[1]));
-                    }
+                    $this->setActionName(lcfirst($raw_arguments[1]));
+                    
+                    # The first two raw arguments are dropped and
+                    # the rest are taken as arguments to the controller
                     unset($raw_arguments[0]);
                     unset($raw_arguments[1]);
                     $this->_arguments = array_values($raw_arguments);
@@ -53,14 +68,14 @@ class Router extends Base{
         }
         Logger::log('system','Controller: ' . $this->getControllerName());
         Logger::log('system','Action: ' . $this->getActionName());
-        $arguments = print_r($this->_arguments, true);
+        $arguments = print_r($this->arguments, true);
         Logger::log('system', 'Arguments: ' . $arguments);
 	
     }
 	
 	
 		
-    # Set the controller name
+    
 	private function setControllerName($controller_name){
 		$this->controller_name = ucfirst($controller_name);
 	}
@@ -77,18 +92,14 @@ class Router extends Base{
 	public function getActionName(){
 		return $this->action_name;
 	}	
-	
-	private function setArguments($arguments){
-		$this->_arguments = $arguments;
-	}
-	
+
 	public function getArguments(){
-		return $this->_arguments;
+		return $this->arguments;
 	}
 	
 	public function getArgument($key){
-		if(isset($this->_argument[$key]))
-			return $this->_argument[$key];
+		if(isset($this->arguments[$key]))
+			return $this->arguments[$key];
 		else
 			return false;
 	}
