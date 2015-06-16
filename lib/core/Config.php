@@ -5,9 +5,10 @@
  * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
-class Security{
 
-	
-	
+class Config {
+    
+    public static $system = array();
+    public static $app = array();
 	
 }

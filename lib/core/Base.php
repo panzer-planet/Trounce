@@ -6,8 +6,6 @@
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
 
-#Framework base class
-
 class Base{
 	public function __construct(){
 	

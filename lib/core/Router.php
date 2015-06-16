@@ -8,7 +8,7 @@
 
 class Router extends Base{
     
-
+#$app_config['']
     private $controller_name;
     private $action_name;
     private $arguments = array();
@@ -17,8 +17,8 @@ class Router extends Base{
         
         # Defaults are set at construction to avoid repetition
         parent::__construct();
-        $this->controller_name = Settings::system_controller_default();
-        $this->action_name = Settings::system_action_default();
+        $this->controller_name = Config::$system['controller_default'];
+        $this->action_name = Config::$system['action_default'];
         $this->arguments = array();
     }
     /**
@@ -29,10 +29,10 @@ class Router extends Base{
     
         # If there is nothing in the specified $_GET variable
         # we skip everything and it will default to the correct route
-		if(isset($_GET[Settings::system_querystring_holder()])){
+		if(isset($_GET[Config::$system['querystring_holder']])){
                 
             # Our internal querystring is held in a single get parameter defined in config.php
-            $querystring = $_GET[Settings::system_querystring_holder()];
+            $querystring = $_GET[Config::$system['querystring_holder']];
           
             # If the querystring is present but empty we skip
             # everything and the it will fall onto defaults

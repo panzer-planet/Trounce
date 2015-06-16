@@ -7,4 +7,4 @@
  */
 
 
-App::run(Settings::app_name());
+App::run($app_config['app_name']);

@@ -21,8 +21,8 @@ class Layout extends Base{
     
     public function renderLayout(){
 	    
-        $filename = ROOT . DS .'app' . DS .Settings::app_name(). DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
-        $default = ROOT . DS .'app' . DS .Settings::app_name(). DS . 'layouts' . DS .'default.xml';
+        $filename = ROOT . DS .'app' . DS .Config::$app['app_name']. DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
+        $default = ROOT . DS .'app' . DS .Config::$app['app_name']. DS . 'layouts' . DS .'default.xml';
         $this->filename = $filename;
         $this->xml_file = simplexml_load_file($filename);
         $this->theme_name =  $this->xml_file['theme'];
@@ -83,8 +83,8 @@ class Layout extends Base{
         }
   
         foreach($views as $view){
-            if(file_exists(ROOT . DS . 'app' . DS . Settings::app_name() . DS . 'views' . DS . $view.'.php')){
-                require_once ROOT . DS . 'app' . DS . Settings::app_name() . DS . 'views' . DS . $view.'.php';
+            if(file_exists(ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php')){
+                require_once ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php';
             }else{
                 #File not found
                 echo '<div style="color: red;">VIEW NOT FOUND</div>';
@@ -96,31 +96,13 @@ class Layout extends Base{
     
     private function renderTheme(){
 
-        if(file_exists(ROOT . DS . 'app'. DS .Settings::app_name(). DS .'themes'. DS . $this->theme_name .'.php')){
-            require_once ROOT . DS . 'app'. DS .Settings::app_name(). DS .'themes'. DS . $this->theme_name .'.php';
+        if(file_exists(ROOT . DS . 'app'. DS .Config::$app['app_name']. DS .'themes'. DS . $this->theme_name .'.php')){
+            require_once ROOT . DS . 'app'. DS .Config::$app['app_name']. DS .'themes'. DS . $this->theme_name .'.php';
         }else{
             #File not found
             die('THEME NOT FOUND');
         }
     }
-    /*
-    
-    private function parseLayoutFile($file_location){
-        $parsed_layout = array();
-        $layouts = simplexml_load_file($file_location);
-        $this->theme_name =  $layouts['theme'];
-        foreach($layouts as $element){
-            $action_name =  (string)$element['action'];
-            foreach($element->block as $block){
-                $block_name =  (string)$block['name'];
-                foreach($block->view as $view){
-                    $parsed_layout[$action_name][$block_name][] = (string)$view;
-                }
-            }
-        }
-        return $parsed_layout;
-	      
-    }
- */
+   
     
 }
