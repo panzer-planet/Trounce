@@ -13,10 +13,13 @@ class Layout extends Base{
     private $layout_name;
     private $theme_name;
     private $xml_file;
+    private $variables;
     
-    public function __construct($layout_name){
-      $this->views_to_render = array();
-      $this->layout_name = $layout_name;
+    public function __construct($layout_name, $variables){
+        parent::__construct();
+        $this->views_to_render = array();
+        $this->layout_name = $layout_name;
+        $this->variables = $variables;
     }
     
     public function renderLayout(){
@@ -51,7 +54,7 @@ class Layout extends Base{
      */
     private function getBlockViews($xml_layout_element,$block_name){
 
-        $views = array();
+        $views = [];
         
         foreach($xml_layout_element[0]->block as $block){
             if($block['name'] == $block_name){
@@ -59,20 +62,18 @@ class Layout extends Base{
                     $views[] = (string)$view;
                 }
             }
-        }
-        
+        }     
         return $views;
-        
     }
 
     
-    private function showBlock($block_name){
-        $views = array();
+    private function showBlock($block_name, $views = [] ){
         
+         # The current action's layout is selectd
         $xpath = '//layout[@action=\''.App::getRouter()->getActionName().'\']';
-        
+         # An SimpleXMLElement is created on the layout node
         $xml_layout_element = $this->xml_file->xpath($xpath);
-        
+         # We get an array of views for the specified block
         $views = $this->getBlockViews($xml_layout_element,$block_name);
         
         #If nothing was found for currrent action, try default action
@@ -81,17 +82,25 @@ class Layout extends Base{
             $xml_layout_element = $this->xml_file->xpath($xpath);
             $views = $this->getBlockViews($xml_layout_element,$block_name);
         }
-  
+         # Render each block
         foreach($views as $view){
-            if(file_exists(ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php')){
-                require_once ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php';
-            }else{
-                #File not found
-                echo '<div style="color: red;">VIEW NOT FOUND</div>';
-            }
+            
+            $this->renderBlock($view,$this->variables);   
         }
-       
-      
+    }
+    
+    private function renderBlock($view, $vars){
+         # Here the variables are 
+         # rescoped for convenience
+        foreach($vars as $k => $v){
+            $$k = $v;
+        }
+        if(file_exists(ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php')){
+            require_once ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php';
+        }else{
+            #File not found
+            echo '<div style="color: red;">VIEW NOT FOUND</div>';
+        }
     }
     
     private function renderTheme(){

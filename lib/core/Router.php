@@ -33,6 +33,9 @@ class Router extends Base{
                 
             # Our internal querystring is held in a single get parameter defined in config.php
             $querystring = $_GET[Config::$system['querystring_holder']];
+            # Special chars are converted for safety
+            $querystring = strip_tags($querystring);
+            $querystring = htmlspecialchars($querystring);
           
             # If the querystring is present but empty we skip
             # everything and the it will fall onto defaults
@@ -62,7 +65,7 @@ class Router extends Base{
                     # the rest are taken as arguments to the controller
                     unset($raw_arguments[0]);
                     unset($raw_arguments[1]);
-                    $this->_arguments = array_values($raw_arguments);
+                    $this->arguments = array_values($raw_arguments);
                 }
             }	
         }

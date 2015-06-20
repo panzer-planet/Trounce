@@ -16,11 +16,11 @@ class Controller extends Base{
         # controllers will all need a __construct
     }
 	    
-    protected function showLayout($layout_name){
+    protected function showLayout($layout_name, $variables){
      
-        $layout = new Layout($layout_name);
-        $render_list = $layout->renderLayout();        
-    
+        $layout = new Layout($layout_name,$variables);
+        #$render_list = $layout->renderLayout();        
+        $layout->renderLayout();        
     }
 	
 	/**
