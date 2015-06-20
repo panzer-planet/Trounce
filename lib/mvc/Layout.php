@@ -15,25 +15,39 @@ class Layout extends Base{
     private $xml_file;
     private $variables;
     
-    public function __construct($layout_name, $variables){
+    public function __construct(){
         parent::__construct();
         $this->views_to_render = array();
-        $this->layout_name = $layout_name;
-        $this->variables = $variables;
+        
+        
     }
     
-    public function renderLayout(){
-	    
-        $filename = ROOT . DS .'app' . DS .Config::$app['app_name']. DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
-        $default = ROOT . DS .'app' . DS .Config::$app['app_name']. DS . 'layouts' . DS .'default.xml';
-        $this->filename = $filename;
-        $this->xml_file = simplexml_load_file($filename);
-        $this->theme_name =  $this->xml_file['theme'];
+    public function render(){
+        $args = func_get_args();
+        if(count($args)){
+            if(isset($args[0])){
+                $this->layout_name = $args[0];
+                if(isset($args[1]) && is_array($args[1])){
+                    $this->variables = $args[1];
+                }
+            }elseif(!isset($this->layout_name)){
+                throw new Exception();
+            }
+        }
+        
+        if(isset($this->layout_name)){
+            $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
+            $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
+            $this->filename = $filename;
+            $this->xml_file = simplexml_load_file($filename);
+            $this->theme_name =  $this->xml_file['theme'];
 
-        $this->renderTheme();
-	
+            $this->renderTheme();
+        }else{
+            throw new Exception('Cannot render before layout_name set');
+        }
+        
     }
-    
     public function getViewList(){
         return $this->view_list;
     }
@@ -46,6 +60,7 @@ class Layout extends Base{
     private function addJs($filename){
         return '<script src="http://'.$_SERVER['HTTP_HOST'].'/js/'.$filename.'"></script>';
     }
+    
     /**
      * Get a list of all the views contained in a given block
      * in the order at which they should be rendered
@@ -67,7 +82,18 @@ class Layout extends Base{
     }
 
     
-    private function showBlock($block_name, $views = [] ){
+    private function showBlock(){
+        $args = func_get_args();
+        
+        if(isset($args[0])){
+            $block_name = $args[0];
+            if(isset($args[1]) && is_array($args[1])){
+                $views = $args[1];
+            }
+        }else{
+            throw new Exception("Layout::showBlock() expects 1 or 2 arguments");
+        }
+        
         
          # The current action's layout is selectd
         $xpath = '//layout[@action=\''.App::getRouter()->getActionName().'\']';
@@ -88,15 +114,32 @@ class Layout extends Base{
             $this->renderBlock($view,$this->variables);   
         }
     }
-    
-    private function renderBlock($view, $vars){
-         # Here the variables are 
-         # rescoped for convenience
-        foreach($vars as $k => $v){
-            $$k = $v;
+    /**
+     * Render a block
+     * @param $block_name
+     * @param $variables
+     */
+    private function renderBlock(){
+        $args = func_get_args();
+        
+        if(isset($args[0])){
+            $view = $args[0];
+            if(isset($args[1]) && is_array($args[1])){
+                $vars = $args[1];
+            }
+        }else{
+            throw new Exception("Layout::renderBlock() expects 1 or 2 arguments");
         }
-        if(file_exists(ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php')){
-            require_once ROOT . DS . 'app' . DS . Config::$app['app_name'] . DS . 'views' . DS . $view.'.php';
+        
+        if(isset($vars)){
+            # Here the variables are 
+            # rescoped for access in the block
+            foreach($vars as $k => $v){
+                $$k = $v;
+            }
+        }
+        if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php')){
+            require_once ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php';
         }else{
             #File not found
             echo '<div style="color: red;">VIEW NOT FOUND</div>';
@@ -104,13 +147,14 @@ class Layout extends Base{
     }
     
     private function renderTheme(){
-
-        if(file_exists(ROOT . DS . 'app'. DS .Config::$app['app_name']. DS .'themes'. DS . $this->theme_name .'.php')){
-            require_once ROOT . DS . 'app'. DS .Config::$app['app_name']. DS .'themes'. DS . $this->theme_name .'.php';
+        #ob_start();
+        if(file_exists(ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php')){
+            require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';
         }else{
             #File not found
-            die('THEME NOT FOUND');
+            throw new Exception(__class__ . __method__ .' Theme file not found');
         }
+        #$buffer = ob_get_clean();
     }
    
     

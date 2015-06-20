@@ -6,7 +6,11 @@
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
 class Security extends Base{
-
+    /**
+     * Check if a URL is valid. Check source for details
+     * @param $url
+     * @return true/false
+     */
     public static function valid_url($url){
         // Regular Expression for URL validation
         //
@@ -58,6 +62,26 @@ class Security extends Base{
         //
         // - Added exclusion of private, reserved and/or local networks ranges
         $reg_ex = '_^(?:(?:https?|ftp)://)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\x{00a1}-\x{ffff}0-9]-*)*[a-z\x{00a1}-\x{ffff}0-9]+)(?:\.(?:[a-z\x{00a1}-\x{ffff}0-9]-*)*[a-z\x{00a1}-\x{ffff}0-9]+)*(?:\.(?:[a-z\x{00a1}-\x{ffff}]{2,})))(?::\d{2,5})?(?:/\S*)?$_iuS';
+        if(preg_match($reg_ex,$url)){
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * Filter a querystring of ASCII < 33 and > 175 and strip
+     * PHP and HTML using strip_tags.
+     * @param $querystring
+     * @returns string
+     */
+    public static function filter_querystring($querystring){
+        $querystring = filter_var($querystring,FILTER_SANITIZE_URL); # http://php.net/manual/en/filter.filters.sanitize.php
+        $querystring = strip_tags($querystring); # https://php.net/strip_tags
+        return $querystring;
+    }
+    
+    public static function filter_xss($string){
+        return htmlentities($string);
     }
 
 }

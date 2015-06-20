@@ -7,4 +7,4 @@
  */
 
 
-App::run($app_config['app_name']);
+App::run();

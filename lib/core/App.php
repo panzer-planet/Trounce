@@ -8,13 +8,13 @@
 
 class App {
 	
-	private static $_router, $theme_name, $name, $title;	
+	private static $theme_name, $title;
+	public static $_router;
+	public static $_request;
+	public static $_response;
 	
 	public static function getRouter(){
 		return self::$_router;
-	}
-	private static function setName($app_name){
-		self::$name = $app_name;
 	}
 	
 	public static function getName(){
@@ -53,24 +53,19 @@ class App {
 	 	self::$title = $title;
 	 }	
 	
-	/**
-	 * Returns the path of the currrently
-	 * enabled app and theme
-	 **/
-	public static function getThemePath(){
-		return ROOT . DS . 'app'. DS . Settings::app_folder(). DS .'themes'. DS .self::getTheme(). DS .'index.php';
-		
-	}
+	public static function run(){
 	
-	public static function run($app_name){
-		self::setName($app_name);
-		Logger::log('system', 'Launching app: ' . self::getName());
+		Logger::log('system', 'Launching app ');
 		
 		#Resolve URL
 		Logger::log('system', 'Resolving URL: ' . $_SERVER['QUERY_STRING']);
 		self::$_router = new Router;
-		
 		self::$_router->resolveUrl();
+		
+		# Create request object
+		self::$_request = new Request;
+		# Create response object
+		self::$_response = new Response;
 		
 		#Initialise the controller
 		Logger::log('system','Initialising controller');
@@ -101,15 +96,15 @@ class App {
 
 	private static function display404(){
 		header("HTTP/1.1 404 Not Found");
-		require_once ROOT . DS .'app'. DS . self::$name.'/error_pages/NotFound.php';
+		require_once ROOT . DS .'app'. DS . 'error_pages/NotFound.php';
 	}
 	
 	private static function initController($controller_name){
 	    #might need to do a try catch here to get it to 404 correctly
-	    if(file_exists(ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php')){
-            require_once ROOT . DS . 'app'. DS . self::$name. DS . 'controllers'. DS . $controller_name .'.php';
+	    if(file_exists(ROOT . DS . 'app'.  DS . 'controllers'. DS . $controller_name .'.php')){
+            require_once ROOT . DS . 'app'. DS . 'controllers'. DS . $controller_name .'.php';
             $controller = new $controller_name();
-        return $controller;
+            return $controller;
 	    }else{
             return false;
 	    }

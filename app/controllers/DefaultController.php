@@ -11,7 +11,7 @@ class DefaultController extends Controller{
 
 
 	public function defaultAction(){
-	     $this->showLayout('default',[]);
+	     $this->showLayout('default');
 	}
 	
 	public function aboutAction($name){
@@ -20,6 +20,17 @@ class DefaultController extends Controller{
 	}
 	
 	public function contactAction(){
+	
+        if(App::$_request->post('email')){
+            echo 'YAY '.App::$_request->post('email');
+        }else{
+            echo 'NAY';
+        }
         $this->showLayout('default');
+    }
+    
+    public function testAction(){
+        App::$_response->setStatusCode(404);
+        App::$_response->send();
     }
 }

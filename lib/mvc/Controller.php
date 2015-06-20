@@ -8,41 +8,33 @@
 
 class Controller extends Base{
 
-	#protected $_app; #Holds the app object to be available
 	
     public function __construct(){
         parent::__construct();
         # Nothing should go here because otherwise
         # controllers will all need a __construct
     }
-	    
-    protected function showLayout($layout_name, $variables){
-     
-        $layout = new Layout($layout_name,$variables);
-        #$render_list = $layout->renderLayout();        
-        $layout->renderLayout();        
+	
+    protected function showLayout(){
+        $args = func_get_args();
+        if(isset($args[0])){
+            $layout_name = $args[0];
+            if(isset($args[1]) && is_array($args[1])){
+                $variables = $args[1];
+            }
+        }else{
+            throw new Exception(__class__ . __method__ . 'expects 1 or 2 arguments');
+        }
+        if(isset($variables)){
+            $layout = new Layout();
+            $layout->render($layout_name,$variables);
+        }else{
+            $layout = new Layout(); 
+            $layout->render($layout_name);
+        }
+        
+        
     }
-	
-	/**
-	 * This function is a wrapper that allows simple
-	 * retreival of variables in controllerr
-	 */
-	 protected function arg($i){
-		$router = $this->_app->getRouter();
-		if( $router->getArgument($i) ){
-			return $router->getArgument($i);
-		}else{
-			return '%UNDEFINED%';
-		}
-	 }
-	 
-	 /**
-	 * This function is a wrapper that allows simple
-	 * retreival of variables in controllerr
-	 */
-	 protected function args(){
-		return $this->_app->getRouter()->getArguments();
-	 }
-	 
-	
+    
+
 }

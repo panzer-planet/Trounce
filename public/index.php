@@ -24,7 +24,6 @@ require_once ROOT . DS . 'lib' . DS . 'config' . DS . 'system.config.php';
  # Remember to change when running in production
 $system_config['debug'] = true;     
 $system_config['logging'] = true;
-$system_config['app_name'] = 'default';
 
  # Bootsrap the system
 require_once ROOT . DS . 'lib' . DS . 'core'. DS  . 'bootstrap.php';

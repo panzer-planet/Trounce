@@ -7,7 +7,7 @@
  */
 $app_config = array(
 
-    'app_name' => 'default', # Must match folder name
+
     'rewrite' => true,  #requires mod_rewrite #deprecated (mod_rewrite)
     'debug' => true,
     

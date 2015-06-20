@@ -23,7 +23,7 @@ Logger::log_no_timestamp('system','###    ' . date("l jS F Y H:m:s") . '   ###')
 Logger::log_no_timestamp('system','##########################################');
 
     # Include app config
-require_once ROOT . DS . 'app'. DS . $system_config['app_name']. DS . 'app.config.php';
+require_once ROOT . DS . 'app'. DS . 'app.config.php';
     
 
 
@@ -35,7 +35,7 @@ Config::$system = $system_config;
 Config::$app = array_merge($system_config,$app_config);
 
     # Include the app's entry point file
-require_once ROOT . DS . 'app'. DS . $system_config['app_name']. DS . 'index.php';
+require_once ROOT . DS . 'app'. DS . 'index.php';
 
     
 if($system_config['debug']){

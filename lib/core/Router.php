@@ -8,7 +8,6 @@
 
 class Router extends Base{
     
-#$app_config['']
     private $controller_name;
     private $action_name;
     private $arguments = array();
@@ -21,12 +20,14 @@ class Router extends Base{
         $this->action_name = Config::$system['action_default'];
         $this->arguments = array();
     }
+    
+    
     /**
      * This function extracts information from the query string
      * to pass to Trounce for processing
      */
     public function resolveUrl(){
-    
+
         # If there is nothing in the specified $_GET variable
         # we skip everything and it will default to the correct route
 		if(isset($_GET[Config::$system['querystring_holder']])){
@@ -34,16 +35,18 @@ class Router extends Base{
             # Our internal querystring is held in a single get parameter defined in config.php
             $querystring = $_GET[Config::$system['querystring_holder']];
             # Special chars are converted for safety
-            $querystring = strip_tags($querystring);
-            $querystring = htmlspecialchars($querystring);
-          
+            #$querystring = strip_tags($querystring);
+            #$querystring = htmlspecialchars($querystring);
+            if(Config::$system['filter_querystring']){
+                $querystring = Security::filter_querystring($querystring);
+            }
             # If the querystring is present but empty we skip
             # everything and the it will fall onto defaults
             if( strlen($querystring) !== 0 ){
             
                 # Trim off any trailing slashes otherwise explode
                 # will contain an empty element at the end
-                $querystring = rtrim($querystring,'/');
+               # $querystring = rtrim($querystring,'/');
                 
                 # Create array of raw arguments
                 $raw_arguments = explode('/',$querystring);
@@ -69,6 +72,9 @@ class Router extends Base{
                 }
             }	
         }
+        if(Config::$system['enable_get'] == false){
+            unset($_GET);
+        }
         Logger::log('system','Controller: ' . $this->getControllerName());
         Logger::log('system','Action: ' . $this->getActionName());
         $arguments = print_r($this->arguments, true);
@@ -78,11 +84,18 @@ class Router extends Base{
 	
 	
 		
-    
+    /**
+     * Set the controller name
+     * @param $controller_name
+     */
 	private function setControllerName($controller_name){
 		$this->controller_name = ucfirst($controller_name);
 	}
 	
+	/**
+	 * Get the controller name
+	 * @returns $controller_name
+	 */
 	public function getControllerName(){
 		return $this->controller_name;
 	}
