@@ -42,10 +42,12 @@ Your contributions and feedback are welcome!
 - PHP 5.6+
 - Apache 2.4 (may work on older versions)
 - MySQL 5.5 (may work on older versions)
+
 ###### Installation
 
 1. Place the files in a web accessible directory (e.g `/var/www/html`)
 2. Enable mod_rewrite
+
 ###### Folder Structure
 
 ```
