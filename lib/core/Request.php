@@ -28,8 +28,8 @@
     /**
      * Get a specified post variable, thee second
      * parameter set to true to enable XSS filtering
-     * @param $name
-     * @param $xss_filtering_enabled
+     * @param string The name of thet post variable
+     * @param boolean Enable XSS filtering
      */
     public function post(){
         $args = func_get_args();
@@ -47,8 +47,8 @@
     /**
      * Get a specified get variable, the second
      * parameter set to true to enable XSS filtering
-     * @param $name
-     * @param $xss_filtering_enabled
+     * @param string The name of the get variable
+     * @param boolean Enable XSS filtering
      */
     public function get(){
         $args = func_get_args();
@@ -67,8 +67,8 @@
    /**
      * Get a specified cookie variable, the second
      * parameter set to true to enable XSS filtering
-     * @param $name
-     * @param $xss_filtering_enabled
+     * @param string The name of the cookie
+     * @param boolean Enable XSS filtering
      */
     public function cookie(){
         $args = func_get_args();
@@ -87,7 +87,8 @@
     /**
      * Get a specified session variable, the second
      * parameter set to true to enable XSS filtering
-     * @param $name
+     * @param string The name of the session variable
+     * @param boolean Enable XSS filtering
      * @param $xss_filtering_enabled
      */
     public function session(){

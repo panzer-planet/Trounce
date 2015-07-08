@@ -11,7 +11,10 @@ class DefaultController extends Controller{
 
 
 	public function defaultAction(){
+	
 	     $this->showLayout('default');
+	     #$model = new UsersSnideModel();
+	     #$model->load(0);
 	}
 	
 	public function aboutAction($name){

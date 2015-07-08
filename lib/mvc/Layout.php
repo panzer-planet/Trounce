@@ -6,22 +6,49 @@
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
 
+/**
+ * Render layouts to the output buffer
+ */
 class Layout extends Base{
-
+    
+    /**
+     * @var string The filename of the layout file
+     */
     private $filename;
+    
+    /**
+     * @var array A list of views to be rendered
+     */
     private $view_list;
+    
+    /**
+     * @var string The name of the layout
+     */
     private $layout_name;
+    
+    /**
+     * @var string The name of the theme
+     */
     private $theme_name;
+    
+    /**
+     * @var SimpleXMLElement The XML layout file handle
+     */
     private $xml_file;
+    
+    /**
+     * @var array Variables that need to be made available to views
+     */
     private $variables;
     
     public function __construct(){
         parent::__construct();
         $this->views_to_render = array();
-        
-        
     }
     
+    /**
+     * Render the layout
+     */
     public function render(){
         $args = func_get_args();
         if(count($args)){
@@ -48,15 +75,23 @@ class Layout extends Base{
         }
         
     }
-    public function getViewList(){
-        return $this->view_list;
-    }
     
+
+    /**
+     * Add a CSS <link> element
+     * @note consider moving to HTML lib
+     * @param string Name of the CSS file
+     */
     private function addCss($filename){
         
         return '<link href="http://'.$_SERVER['HTTP_HOST'].'/css/'.$filename.'" rel="stylesheet">';
     }
     
+    /**
+     * Add a JS <script> element
+     * @note consider moving to HTML lib
+     * @param string Name of the JS file
+     */
     private function addJs($filename){
         return '<script src="http://'.$_SERVER['HTTP_HOST'].'/js/'.$filename.'"></script>';
     }
@@ -74,6 +109,10 @@ class Layout extends Base{
         foreach($xml_layout_element[0]->block as $block){
             if($block['name'] == $block_name){
                 foreach($block as $view){
+                    /* We should not assume these
+                     * are all blocks
+                     */
+                     
                     $views[] = (string)$view;
                 }
             }
@@ -81,8 +120,7 @@ class Layout extends Base{
         return $views;
     }
 
-    
-    private function showBlock(){
+    protected function showBlock(){
         $args = func_get_args();
         
         if(isset($args[0])){
@@ -96,7 +134,7 @@ class Layout extends Base{
         
         
          # The current action's layout is selectd
-        $xpath = '//layout[@action=\''.App::getRouter()->getActionName().'\']';
+        $xpath = '//layout[@action=\''.App::$_router->getActionName().'\']';
          # An SimpleXMLElement is created on the layout node
         $xml_layout_element = $this->xml_file->xpath($xpath);
          # We get an array of views for the specified block
@@ -111,15 +149,15 @@ class Layout extends Base{
          # Render each block
         foreach($views as $view){
             
-            $this->renderBlock($view,$this->variables);   
+            $this->renderView($view,$this->variables);   
         }
     }
     /**
-     * Render a block
-     * @param $block_name
-     * @param $variables
+     * Renders a block
+     * @param string $block_name
+     * @param array $variables
      */
-    private function renderBlock(){
+    private function renderView(){
         $args = func_get_args();
         
         if(isset($args[0])){

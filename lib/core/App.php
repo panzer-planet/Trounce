@@ -7,52 +7,33 @@
  */
 
 class App {
-	
-	private static $theme_name, $title;
+	/**
+	 * @var string The title of the application
+	 */
+	public static $title;
+	/**
+	 * @var Router Holds a Router object
+	 */
 	public static $_router;
+	/**
+	 * @var Request Holds a Request object
+	 */
 	public static $_request;
+	/**
+	 * @var Response Holds a Response object
+	 */
 	public static $_response;
-	
-	public static function getRouter(){
-		return self::$_router;
-	}
-	
-	public static function getName(){
-		return self::$name;
-	}
-	
+
+
 	/**
-	 * Set the theme of the site
-	 * @param $theme_name the name of the theme
+	 * Run the application
+	 *
+	 * Trounce begins running the application by creating a Router,
+	 * Request and Response object. It then uses the Router to
+	 * resolve the querystring to a controller and action which is
+	 * then run.
 	 */
-	public static function setTheme($theme_name){
-		self::$theme_name = strtolower($theme_name);
-	}
-	
-	/**
-	 * Get the _theme_name of the site
-	 * @return string theme of the site
-	 */
-	public static function getTheme(){
-		return self::$theme_name;
-	}
-	
-	/**
-	 * Getter for title
-	 * @return The title of the application or page
-	 */
-	public static function getTitle(){
-		return self::$title;
-	}
-	
-	/**
-	 * Setter for title
-	 * @param string title The title for the page
-	 */
-	 public static function setTitle($title){
-	 	self::$title = $title;
-	 }	
-	
+	 
 	public static function run(){
 	
 		Logger::log('system', 'Launching app ');
@@ -99,6 +80,10 @@ class App {
 		require_once ROOT . DS .'app'. DS . 'error_pages/NotFound.php';
 	}
 	
+	/**
+	 * Initialises a controller
+	 * @param string $controller_name
+	 */ 
 	private static function initController($controller_name){
 	    #might need to do a try catch here to get it to 404 correctly
 	    if(file_exists(ROOT . DS . 'app'.  DS . 'controllers'. DS . $controller_name .'.php')){

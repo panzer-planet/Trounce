@@ -12,14 +12,16 @@
  */
 $system_config = array(
     #Core
-    'rewrite'               =>  true,	#requires mod_rewrite #deprecated (mod_rewrite)
+    
     'debug'                 =>  true,
-    'load_libraries'        =>  ['core','mvc'],
+    'dev_mode'              =>  true,
+    'load_libs'             =>  ['core','mvc','exception','db','shared'],
     'log_directory'         =>  ROOT . DS . 'logs' . DS,
     'enable_system_logging' =>  true,	# Ensure php has permissions to write here
     'enable_error_logging'  =>  true,
     
     # Query string
+    'rewrite'               =>  true,   #requires mod_rewrite #deprecated (mod_rewrite)
     'querystring_holder'    =>  'url',
     'enable_get'            => false,
     'filter_querystring'    => true,
@@ -30,6 +32,7 @@ $system_config = array(
     'db_host'       => 'localhost',
     'db_username'   => 'default',
     'db_password'   => 'default',
+    'db_name'       => 'default',
     
     # 
     'cookie_default_expire' => '',

@@ -26,4 +26,4 @@ $system_config['debug'] = true;
 $system_config['logging'] = true;
 
  # Bootsrap the system
-require_once ROOT . DS . 'lib' . DS . 'core'. DS  . 'bootstrap.php';
+require_once ROOT . DS . 'lib' .  DS  . 'bootstrap.php';

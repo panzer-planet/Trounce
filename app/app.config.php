@@ -23,7 +23,8 @@ $app_config = array(
     
     
     'db_host' => 'localhost',
-    'db_username' => 'default',
-    'db_password' => 'default',
+    'db_username' => 'root',
+    'db_password' => 'root',
+    'db_name'     => 'test',
 
 );

@@ -6,12 +6,29 @@
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
 
+ /**
+  * This class is used to parse the query string
+  */
 class Router extends Base{
     
+    /**
+     * @var string The name of the controller
+     */
     private $controller_name;
+    /**
+     * @var string The name of the action
+     */
     private $action_name;
+    /**
+     * @var array The other arguments passed in the query string
+     */
     private $arguments = array();
 	
+	/**
+	 * Object constructor.
+	 * Sets the action name and controller name to
+	 * default on construction
+	 */
     public function __construct(){
         
         # Defaults are set at construction to avoid repetition
@@ -23,8 +40,7 @@ class Router extends Base{
     
     
     /**
-     * This function extracts information from the query string
-     * to pass to Trounce for processing
+     * Extract the arguments from the query string
      */
     public function resolveUrl(){
 
@@ -46,7 +62,7 @@ class Router extends Base{
             
                 # Trim off any trailing slashes otherwise explode
                 # will contain an empty element at the end
-               # $querystring = rtrim($querystring,'/');
+                $querystring = rtrim($querystring,'/');
                 
                 # Create array of raw arguments
                 $raw_arguments = explode('/',$querystring);
@@ -86,7 +102,7 @@ class Router extends Base{
 		
     /**
      * Set the controller name
-     * @param $controller_name
+     * @param string $controller_name
      */
 	private function setControllerName($controller_name){
 		$this->controller_name = ucfirst($controller_name);
@@ -94,25 +110,40 @@ class Router extends Base{
 	
 	/**
 	 * Get the controller name
-	 * @returns $controller_name
+	 * @returns string $controller_name
 	 */
 	public function getControllerName(){
 		return $this->controller_name;
 	}
 	
-	# Set the action name 
+	/**
+	 * Set the action name
+	 * @param string $action_name
+	 */
 	private function setActionName($action_name){
 		$this->action_name = lcfirst($action_name);
 	}
 	
+	/**
+	 * Get the action name
+	 * @returns string $action_name
+	 */
 	public function getActionName(){
 		return $this->action_name;
 	}	
-
+    
+    /**
+     * Get all the arguments
+     * @returns array $arguments
+     */
 	public function getArguments(){
 		return $this->arguments;
 	}
 	
+	/**
+	 * Get an argument
+	 * @returns string $argument
+	 */
 	public function getArgument($key){
 		if(isset($this->arguments[$key]))
 			return $this->arguments[$key];
