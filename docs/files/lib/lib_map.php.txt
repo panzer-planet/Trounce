@@ -1,0 +1,40 @@
+ <?php
+ /**
+ * Trounce - Rapid development PHP framework 
+ * @copyrite Copyright (c) 2015,  Werner Roets
+ * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @author Werner Roets <cobolt.exe@gmail.com>
+ */
+ 
+ /* A map of all classes to be loaded.
+  * this is the fastest way to run in 
+  * production mode https://mwop.net/blog/245-Autoloading-Benchmarks.html
+  * This only applies to libraries
+  */
+  /*
+  TODO: Create generator for the class map
+  */
+  
+$lib_map = array(
+
+    'core' => array(
+        'App',
+        'Base',
+        'Config',
+        'Cookie',
+        'Logger',
+        'Registry',
+        'Request',
+        'Response',
+        'Router',
+        'Security',
+        
+    
+    ),
+    'mvc' => array(
+        'Controller',
+        'Layout',
+        'Model',
+    )
+
+);

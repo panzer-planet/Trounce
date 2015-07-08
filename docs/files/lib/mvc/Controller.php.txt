@@ -6,6 +6,9 @@
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
 
+ /**
+  * Parent class of all controllers
+  */
 class Controller extends Base{
 
 	
@@ -15,6 +18,11 @@ class Controller extends Base{
         # controllers will all need a __construct
     }
 	
+	/**
+	 * Render a layout to output
+	 * @param string The name of the layout
+	 * @param array Variables for views
+	 */
     protected function showLayout(){
         $args = func_get_args();
         if(isset($args[0])){
