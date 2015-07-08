@@ -6,7 +6,7 @@ Trounce is a web development framework for PHP with emphasis on **speed**, **sec
 ###The project is still in early stages 
 Your contributions and feedback are welcome!
 
-**WARNING!:** I am writing this software to learn more about PHP, web servers, security and framework design. I have not written this software with the expectation that it will be usable under production environments.
+**WARNING!:** I am writing this software to learn more about PHP, web servers, security and framework design. I have not written this software with the expectation that it will be usable on production environments.
 
 ```
     Copyright (C) 2015  Werner Roets <cobolt.exe@gmail.com>
