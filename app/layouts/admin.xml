@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+
+<layouts theme='admin'>
+  
+  <layout action="default">    
+    <block name="content">
+      <view>admin/default</view>
+    </block>
+  </layout>
+
+  
+</layouts>
