@@ -1,0 +1,8 @@
+use test;
+CREATE TABLE users(
+    email VARCHAR(255),
+    password VARCHAR(255),
+    name VARCHAR(255),
+    surname VARCHAR(255),
+    primary key(email)
+)

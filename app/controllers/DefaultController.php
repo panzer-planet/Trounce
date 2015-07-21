@@ -13,8 +13,16 @@ class DefaultController extends Controller{
 	public function defaultAction(){
 	#$host = null, $username = null, $password = null, $db_name = null
 	     $this->showLayout('default');
-	     
-	     $smysql = new SimpleDB(SimpleDB::TYPE_MYSQL);
+	     echo '<pre>';
+	     echo 'public_html : ';
+	     echo DirPath::html();
+	     echo '<br>';
+	     echo 'root : ';
+         echo DirPath::root();
+         echo '<br>';
+         
+	     /*
+	     $smysql = new SimpleDB('mysql');
 	     
 	     $result  = $smysql->connect('localhost','root','root','test');
 	     
@@ -26,12 +34,12 @@ class DefaultController extends Controller{
 	     
 	     
 	     #$result = $smysql->execute("insert into users (name, surname, id) values (?, ?, ?)",array('this','guy',10));
-	     /*
-	     $result =  $smysql->update('users',
-            array('name' => 'sdggdgsdgdss','surname' => 'PETERfdsfdsfsddfsSCHMIDT'),
-            array("id=?",array(2))
-	     );
-	     */
+	     
+	     #$result =  $smysql->update('users',
+         #   array('name' => 'sdggdgsdgdss','surname' => 'PETERfdsfdsfsddfsSCHMIDT'),
+         #   array("id=?",array(2))
+	     #);
+	     
 	     if(!$result){
             echo (bool)$result.' FAIL';
             
@@ -40,7 +48,7 @@ class DefaultController extends Controller{
             echo 'success';
             print_r($result);
          }
-	     
+	     */
 	     
 	}
 	

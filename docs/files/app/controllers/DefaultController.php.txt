@@ -11,10 +11,37 @@ class DefaultController extends Controller{
 
 
 	public function defaultAction(){
-	
+	#$host = null, $username = null, $password = null, $db_name = null
 	     $this->showLayout('default');
-	     #$model = new UsersSnideModel();
-	     #$model->load(0);
+	     
+	     $smysql = new SimpleDB(SimpleDB::TYPE_MYSQL);
+	     
+	     $result  = $smysql->connect('localhost','root','root','test');
+	     
+	     if(!$result){ die($smysql->error); }
+	     
+	    # $result = $smysql->delete('users', array('id = ? OR id = ?',array(2,3)));
+	     
+	     $result = $smysql->insert('users',array('name' => 'john' ,'surname' =>'smith','id' => 2));
+	     
+	     
+	     #$result = $smysql->execute("insert into users (name, surname, id) values (?, ?, ?)",array('this','guy',10));
+	     /*
+	     $result =  $smysql->update('users',
+            array('name' => 'sdggdgsdgdss','surname' => 'PETERfdsfdsfsddfsSCHMIDT'),
+            array("id=?",array(2))
+	     );
+	     */
+	     if(!$result){
+            echo (bool)$result.' FAIL';
+            
+            die($smysql->error);
+         }else{
+            echo 'success';
+            print_r($result);
+         }
+	     
+	     
 	}
 	
 	public function aboutAction($name){

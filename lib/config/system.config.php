@@ -15,7 +15,7 @@ $system_config = array(
     
     'debug'                 =>  true,
     'dev_mode'              =>  true,
-    'load_libs'             =>  ['core','mvc','exception','db','shared'],
+    'load_libs'             =>  ['core','db','http'], # You must load core then db then mvc
     'log_directory'         =>  ROOT . DS . 'logs' . DS,
     'enable_system_logging' =>  true,	# Ensure php has permissions to write here
     'enable_error_logging'  =>  true,
@@ -33,6 +33,7 @@ $system_config = array(
     'db_username'   => 'default',
     'db_password'   => 'default',
     'db_name'       => 'default',
+    'db_type'       => 'mysql',
     
     # 
     'cookie_default_expire' => '',

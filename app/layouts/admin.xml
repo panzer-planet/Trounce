@@ -2,11 +2,14 @@
 
 <layouts theme='admin'>
   
-  <layout action="default">    
-    <block name="content">
-      <view>admin/default</view>
-    </block>
-  </layout>
-
-  
+    <layout action="default">    
+        <block name="content">
+            <view>admin/default</view>
+        </block>
+    </layout>
+    <layout action="login">
+        <block name="content">
+            <view>admin/login</view>
+        </block>
+    </layout>
 </layouts>

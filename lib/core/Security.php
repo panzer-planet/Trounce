@@ -5,7 +5,7 @@
  * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
-class Security extends Base{
+class Security {
     /**
      * Check if a URL is valid. Check source for details
      * @param $url

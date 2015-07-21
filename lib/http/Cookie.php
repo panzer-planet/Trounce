@@ -1,0 +1,78 @@
+<?php
+/**
+ * Trounce - Rapid development PHP framework 
+ * @copyrite Copyright (c) 2015,  Werner Roets
+ * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @author Werner Roets <cobolt.exe@gmail.com>
+ */
+
+class Cookie {
+    
+    /**
+     * The name of the cooke
+     * @var string 
+     */
+    public $name;
+    
+    /**
+     * The value of the cookie
+     * @var string
+     */
+    public $value;
+    
+    /**
+     * The expiration date of the cookie in UNIX time
+     * @var int
+     */
+    public $expire;
+    
+    /**
+     * The path of the cookie
+     * @var string
+     */
+    public $path;
+    
+    /**
+     * The domain of the cookie
+     * @var string
+     */
+    public $domain;
+    
+    /**
+     * Is the cookie https only
+     * @var bool
+     */
+    public $secure;
+    
+    /**
+     * Is the cookie http only. No JS access
+     * @var bool
+     */
+    public $http_only;
+    
+    public function __construct(){
+        parent::__construct();
+        $this->expire = Config::$system['cookie_default_expire'];
+        $this->path = Config::$system['cookie_default_path'];
+        $this->domain = Config::$system['cookie_default_domain'];
+        $this->secure = Config::$system['cookie_secure'];
+        $this->http_only = Config::$system['cookie_https_only'];
+    }
+    
+    public function send(){
+        setcookie(
+            $this->name,
+            $this->value,
+            $this->expire,
+            $this->path,
+            $this->domain,
+            $this->secure,
+            $this->http_only
+        );
+    }
+    
+    public function delete(){
+    
+    }
+
+}

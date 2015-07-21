@@ -1,0 +1,201 @@
+<?php
+/**
+ * Trounce - Rapid development PHP framework 
+ * @copyrite Copyright (c) 2015,  Werner Roets
+ * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @author Werner Roets <cobolt.exe@gmail.com>
+ */
+
+/**
+ * Render layouts to the output buffer
+ */
+class Layout{
+    
+    /**
+     * @var string The filename of the layout file
+     */
+    private $filename;
+    
+    /**
+     * @var array A list of views to be rendered
+     */
+    private $view_list;
+    
+    /**
+     * @var string The name of the layout
+     */
+    private $layout_name;
+    
+    /**
+     * @var string The name of the theme
+     */
+    private $theme_name;
+    
+    /**
+     * @var SimpleXMLElement The XML layout file handle
+     */
+    private $xml_file;
+    
+    /**
+     * @var array Variables that need to be made available to views
+     */
+    private $variables;
+    
+    public function __construct(){
+        $this->views_to_render = array();
+    }
+    
+    /**
+     * Render the layout
+     */
+    public function render(){
+        $args = func_get_args();
+        if(count($args)){
+            if(isset($args[0])){
+                $this->layout_name = $args[0];
+                if(isset($args[1]) && is_array($args[1])){
+                    $this->variables = $args[1];
+                }
+            }elseif(!isset($this->layout_name)){
+                throw new Exception();
+            }
+        }
+        
+        if(isset($this->layout_name)){
+            $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
+            $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
+            $this->filename = $filename;
+            $this->xml_file = simplexml_load_file($filename);
+            $this->theme_name =  $this->xml_file['theme'];
+
+            $this->renderTheme();
+        }else{
+            throw new Exception('Cannot render before layout_name set');
+        }
+        
+    }
+    
+
+    /**
+     * Add a CSS <link> element
+     * @note consider moving to HTML lib
+     * @param string Name of the CSS file
+     */
+    private function addCss($filename){
+        
+        return '<link href="http://'.$_SERVER['HTTP_HOST'].'/css/'.$filename.'" rel="stylesheet">';
+    }
+    
+    /**
+     * Add a JS <script> element
+     * @note consider moving to HTML lib
+     * @param string Name of the JS file
+     */
+    private function addJs($filename){
+        return '<script src="http://'.$_SERVER['HTTP_HOST'].'/js/'.$filename.'"></script>';
+    }
+    
+    /**
+     * Get a list of all the views contained in a given block
+     * in the order at which they should be rendered
+     * @param SimpleXMLElement $xml_layout_element
+     * @param string $block_name;
+     */
+    private function getBlockViews($xml_layout_element,$block_name){
+
+        $views = [];
+        if(isset($xml_layout_element[0])){
+            foreach($xml_layout_element[0]->block as $block){
+                if($block['name'] == $block_name){
+                    foreach($block as $view){
+                        /* We should not assume these
+                        * are all blocks
+                        */
+                        
+                        $views[] = (string)$view;
+                    }
+                }
+            }
+        }else{
+            die('This action does not exist in the layout');
+        }
+        return $views;
+    }
+
+    protected function showBlock(){
+        $args = func_get_args();
+        
+        if(isset($args[0])){
+            $block_name = $args[0];
+            if(isset($args[1]) && is_array($args[1])){
+                $views = $args[1];
+            }
+        }else{
+            throw new Exception("Layout::showBlock() expects 1 or 2 arguments");
+        }
+        
+        
+         # The current action's layout is selectd
+        $xpath = '//layout[@action=\''.App::$_router->getActionName().'\']';
+         # An SimpleXMLElement is created on the layout node
+        $xml_layout_element = $this->xml_file->xpath($xpath);
+         # We get an array of views for the specified block
+        $views = $this->getBlockViews($xml_layout_element,$block_name);
+        
+        #If nothing was found for currrent action, try default action
+        if(count($views) == 0){
+            $xpath = '//layout[@action=\'default\']';
+            $xml_layout_element = $this->xml_file->xpath($xpath);
+            $views = $this->getBlockViews($xml_layout_element,$block_name);
+        }
+         # Render each block
+        foreach($views as $view){
+            
+            $this->renderView($view,$this->variables);   
+        }
+    }
+    /**
+     * Renders a block
+     * @param string $block_name
+     * @param array $variables
+     */
+    private function renderView(){
+        $args = func_get_args();
+        
+        if(isset($args[0])){
+            $view = $args[0];
+            if(isset($args[1]) && is_array($args[1])){
+                $vars = $args[1];
+            }
+        }else{
+            throw new Exception("Layout::renderBlock() expects 1 or 2 arguments");
+        }
+        
+        if(isset($vars)){
+            # Here the variables are 
+            # rescoped for access in the block
+            foreach($vars as $k => $v){
+                $$k = $v;
+            }
+        }
+        if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php')){
+            require_once ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php';
+        }else{
+            #File not found
+            echo '<div style="color: red;">VIEW NOT FOUND</div>';
+        }
+    }
+    
+    private function renderTheme(){
+        #ob_start();
+        if(file_exists(ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php')){
+            require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';
+        }else{
+            #File not found
+            throw new Exception(__class__ . __method__ .' Theme file not found');
+        }
+        #$buffer = ob_get_clean();
+    }
+   
+    
+}

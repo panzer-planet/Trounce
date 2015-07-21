@@ -23,7 +23,11 @@ class App {
 	 * @var Response Holds a Response object
 	 */
 	public static $_response;
-
+    
+    /**
+     * @var $_config
+     */
+     public static $_config = array();
 
 	/**
 	 * Run the application
@@ -33,13 +37,15 @@ class App {
 	 * resolve the querystring to a controller and action which is
 	 * then run.
 	 */
-	 
+	
+	public static function set_config($app_config){
+        self::$_config = $app_config;
+	}
+	
 	public static function run(){
 	
-		Logger::log('system', 'Launching app ');
-		
 		#Resolve URL
-		Logger::log('system', 'Resolving URL: ' . $_SERVER['QUERY_STRING']);
+		Logger::write('system', 'Resolving URL: ' . $_SERVER['REQUEST_URI']);
 		self::$_router = new Router;
 		self::$_router->resolveUrl();
 		
@@ -49,7 +55,7 @@ class App {
 		self::$_response = new Response;
 		
 		#Initialise the controller
-		Logger::log('system','Initialising controller');
+		Logger::write('system','Initialising '.self::$_router->getControllerName().'Controller');
 		$controller_name = self::$_router->getControllerName().'Controller';
         
 		if($_controller = self::initController($controller_name)){
@@ -59,7 +65,7 @@ class App {
 			
 			
 			if(method_exists($_controller,$action_name)){
-				Logger::log('system', 'Firing action: '.self::$_router->getActionName());
+				Logger::write('system', 'Firing action: '.self::$_router->getActionName());
                    
 				if(self::$_router->getArguments()){
                     call_user_func_array(array($_controller, $action_name),self::$_router->getArguments());

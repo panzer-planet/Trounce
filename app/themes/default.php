@@ -2,6 +2,7 @@
     <head>
         <title>Trounce - Rapid development PHP framework</title>
         <?php echo $this->addCss('bootstrap.min.css'); ?>
+        <?php echo $this->addCss('app.css'); ?>
         <?php echo $this->addJs('bootstrap.min.js'); ?>
     </head>
     <body>

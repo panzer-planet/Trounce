@@ -9,7 +9,7 @@
  /**
   * This class is used to parse the query string
   */
-class Router extends Base{
+class Router {
     
     /**
      * @var string The name of the controller
@@ -32,9 +32,8 @@ class Router extends Base{
     public function __construct(){
         
         # Defaults are set at construction to avoid repetition
-        parent::__construct();
-        $this->controller_name = Config::$system['controller_default'];
-        $this->action_name = Config::$system['action_default'];
+        $this->controller_name = App::$_config['controller_default'];
+        $this->action_name = App::$_config['action_default'];
         $this->arguments = array();
     }
     
@@ -46,14 +45,14 @@ class Router extends Base{
 
         # If there is nothing in the specified $_GET variable
         # we skip everything and it will default to the correct route
-		if(isset($_GET[Config::$system['querystring_holder']])){
+		if(isset($_GET[App::$_config['querystring_holder']])){
                 
             # Our internal querystring is held in a single get parameter defined in config.php
-            $querystring = $_GET[Config::$system['querystring_holder']];
+            $querystring = $_GET[App::$_config['querystring_holder']];
             # Special chars are converted for safety
             #$querystring = strip_tags($querystring);
             #$querystring = htmlspecialchars($querystring);
-            if(Config::$system['filter_querystring']){
+            if(App::$_config['filter_querystring']){
                 $querystring = Security::filter_querystring($querystring);
             }
             # If the querystring is present but empty we skip
@@ -88,13 +87,13 @@ class Router extends Base{
                 }
             }	
         }
-        if(Config::$system['enable_get'] == false){
+        if(App::$_config['enable_get'] == false){
             unset($_GET);
         }
-        Logger::log('system','Controller: ' . $this->getControllerName());
-        Logger::log('system','Action: ' . $this->getActionName());
+        Logger::write('system','Controller: ' . $this->getControllerName());
+        Logger::write('system','Action: ' . $this->getActionName());
         $arguments = print_r($this->arguments, true);
-        Logger::log('system', 'Arguments: ' . $arguments);
+        Logger::write('system', 'Arguments: ' . $arguments);
 	
     }
 	
