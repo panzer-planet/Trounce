@@ -18,6 +18,14 @@
         $this->status_code = http_response_code();
     }
     
+    /**
+     * Redirect to another location
+     * @param string $url
+     */
+    public function redirect($url){
+        header("Location: {$url}");
+    }
+    
     public function setStatusCode($code){
         if(is_int($code)){
             $this->status_code = $code;

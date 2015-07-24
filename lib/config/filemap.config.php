@@ -18,9 +18,8 @@
 
 $lib_files = array(
 ROOT . DS . 'lib' . DS . 'core' . DS . 'App.php',
-#ROOT . DS . 'lib' . DS . 'core' . DS . 'Config.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Controller.php',
-ROOT . DS . 'lib' . DS . 'core' . DS . 'DirPath.php',
+ROOT . DS . 'lib' . DS . 'core' . DS . 'Loc.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Layout.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Logger.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Registry.php',

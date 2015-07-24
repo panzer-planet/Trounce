@@ -11,50 +11,11 @@ class DefaultController extends Controller{
 
 
 	public function defaultAction(){
-	#$host = null, $username = null, $password = null, $db_name = null
-	     $this->showLayout('default');
-	     echo '<pre>';
-	     echo 'public_html : ';
-	     echo DirPath::html();
-	     echo '<br>';
-	     echo 'root : ';
-         echo DirPath::root();
-         echo '<br>';
-         
-	     /*
-	     $smysql = new SimpleDB('mysql');
-	     
-	     $result  = $smysql->connect('localhost','root','root','test');
-	     
-	     if(!$result){ die($smysql->error); }
-	     
-	    # $result = $smysql->delete('users', array('id = ? OR id = ?',array(2,3)));
-	     
-	     $result = $smysql->insert('users',array('name' => 'john' ,'surname' =>'smith','id' => 2));
-	     
-	     
-	     #$result = $smysql->execute("insert into users (name, surname, id) values (?, ?, ?)",array('this','guy',10));
-	     
-	     #$result =  $smysql->update('users',
-         #   array('name' => 'sdggdgsdgdss','surname' => 'PETERfdsfdsfsddfsSCHMIDT'),
-         #   array("id=?",array(2))
-	     #);
-	     
-	     if(!$result){
-            echo (bool)$result.' FAIL';
-            
-            die($smysql->error);
-         }else{
-            echo 'success';
-            print_r($result);
-         }
-	     */
-	     
+        return array('name' => 'Marco');
 	}
 	
 	public function aboutAction($name){
-        App::setTheme('default');//assumed default
-        $this->showLayout('default',['name' => $name]);
+       
 	}
 	
 	public function contactAction(){

@@ -48,7 +48,10 @@ class Layout{
     /**
      * Render the layout
      */
-    public function render(){
+    public function render($layout_name, $variables = array()){
+        
+        if($variables) $this->variables = $variables;
+    /*
         $args = func_get_args();
         if(count($args)){
             if(isset($args[0])){
@@ -60,9 +63,9 @@ class Layout{
                 throw new Exception();
             }
         }
-        
-        if(isset($this->layout_name)){
-            $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($this->layout_name).'.xml';
+      */  
+        if(isset($layout_name)){
+            $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($layout_name).'.xml';
             $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
             $this->filename = $filename;
             $this->xml_file = simplexml_load_file($filename);
@@ -122,7 +125,9 @@ class Layout{
         return $views;
     }
 
-    protected function showBlock(){
+    
+    protected function showBlock($block_name, $views = array()){
+        /*
         $args = func_get_args();
         
         if(isset($args[0])){
@@ -133,7 +138,7 @@ class Layout{
         }else{
             throw new Exception("Layout::showBlock() expects 1 or 2 arguments");
         }
-        
+        */
         
          # The current action's layout is selectd
         $xpath = '//layout[@action=\''.App::$_router->getActionName().'\']';
@@ -159,7 +164,9 @@ class Layout{
      * @param string $block_name
      * @param array $variables
      */
-    private function renderView(){
+    private function renderView($view, $vars = array()){
+        
+        /*
         $args = func_get_args();
         
         if(isset($args[0])){
@@ -170,13 +177,14 @@ class Layout{
         }else{
             throw new Exception("Layout::renderBlock() expects 1 or 2 arguments");
         }
-        
+        */
         if(isset($vars)){
             # Here the variables are 
             # rescoped for access in the block
             foreach($vars as $k => $v){
                 $$k = $v;
             }
+            
         }
         if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php')){
             require_once ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php';
@@ -196,6 +204,8 @@ class Layout{
         }
         #$buffer = ob_get_clean();
     }
+    
+    
    
     
 }

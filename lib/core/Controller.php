@@ -10,7 +10,7 @@
   * Parent class of all controllers
   */
 class Controller{
-
+    public $layout_var = array();
 	
     public function __construct(){
         # Nothing should go here because otherwise
@@ -39,8 +39,11 @@ class Controller{
             $layout = new Layout(); 
             $layout->render($layout_name);
         }
-        
-        
+    }
+    
+    #protected function layout
+    public function ass(){
+        echo 'asssssssssssssssssssssss'.$this->temps;
     }
     
 

@@ -43,7 +43,7 @@ function __autoload($class_name){
     } 
 }
 
-Logger::write('system','###        Welcome to ' . FRAMEWORK_NAME . '        ###');
+Logger::write('system','###         Welcome to ' . FRAMEWORK_NAME . '        ###');
 Logger::write('system','###  ' . date("l jS F Y H:m:s") . '  ###');
 
     /* IMPORTANT: Anything not in the system config or overwritten by

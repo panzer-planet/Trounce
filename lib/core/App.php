@@ -56,27 +56,30 @@ class App {
 		
 		#Initialise the controller
 		Logger::write('system','Initialising '.self::$_router->getControllerName().'Controller');
-		$controller_name = self::$_router->getControllerName().'Controller';
-        
-		if($_controller = self::initController($controller_name)){
+		        
+		if($_controller = self::initController(self::$_router->getControllerName())){
 		      
 			#Run the action code
 			$action_name = self::$_router->getActionName().'Action';
 			
-			
 			if(method_exists($_controller,$action_name)){
 				Logger::write('system', 'Firing action: '.self::$_router->getActionName());
-                   
+                $result = array();
 				if(self::$_router->getArguments()){
-                    call_user_func_array(array($_controller, $action_name),self::$_router->getArguments());
+                    $result = call_user_func_array(array($_controller, $action_name),self::$_router->getArguments());
                 }else{
-                    call_user_func(array($_controller, $action_name));
+                    $result = call_user_func(array($_controller, $action_name));
+                }
+                $layout = new Layout();
+                if($result){
+                    $layout->render(self::$_router->getControllerName(),$result);
+                }else{
+                    $layout->render(self::$_router->getControllerName());
                 }
 			}else{
 				self::display404();
 			}
 		}else{
-		
 			self::display404();
 		}
 	}
@@ -90,11 +93,12 @@ class App {
 	 * Initialises a controller
 	 * @param string $controller_name
 	 */ 
-	private static function initController($controller_name){
+	private static function initController($controller){
+        $controller_class = $controller.'Controller';
 	    #might need to do a try catch here to get it to 404 correctly
-	    if(file_exists(ROOT . DS . 'app'.  DS . 'controllers'. DS . $controller_name .'.php')){
-            require_once ROOT . DS . 'app'. DS . 'controllers'. DS . $controller_name .'.php';
-            $controller = new $controller_name();
+	    if(file_exists(ROOT . DS . 'app'.  DS . 'controllers'. DS . $controller_class.'.php')){
+            require_once ROOT . DS . 'app'. DS . 'controllers'. DS . $controller_class.'.php';
+            $controller = new $controller_class();
             return $controller;
 	    }else{
             return false;
