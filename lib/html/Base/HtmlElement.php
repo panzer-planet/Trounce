@@ -22,7 +22,7 @@ class HtmlElement{
     protected $inner_html;
     protected $self_closing;
 
-     public function __construct() {
+    public function __construct() {
         $this->attributes = array();
     }
     

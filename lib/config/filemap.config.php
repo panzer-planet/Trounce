@@ -25,6 +25,7 @@ ROOT . DS . 'lib' . DS . 'core' . DS . 'Logger.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Registry.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Router.php',
 ROOT . DS . 'lib' . DS . 'core' . DS . 'Security.php',
+ROOT . DS . 'lib' . DS . 'core' . DS . 'Session.php',
 
 ROOT . DS . 'lib' . DS . 'db' . DS . 'T_DB.php',
 ROOT . DS . 'lib' . DS . 'db' . DS . 'Model.php',

@@ -70,12 +70,16 @@ class App {
                 }else{
                     $result = call_user_func(array($_controller, $action_name));
                 }
-                $layout = new Layout();
-                if($result){
-                    $layout->render(self::$_router->getControllerName(),$result);
-                }else{
-                    $layout->render(self::$_router->getControllerName());
+                
+                $layout = new Layout(self::$_router->getControllerName());
+                if($layout->hasAction(self::$_router->getActionName())){
+                    if($result){
+                        $layout->render($result);
+                    }else{
+                        $layout->render();
+                    }
                 }
+                
 			}else{
 				self::display404();
 			}

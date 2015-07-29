@@ -2,7 +2,10 @@
 
 <layouts theme='admin'>
   
-    <layout action="default">    
+    <layout action="default">
+        <block name="menu">
+            <view>admin/menu</view>
+        </block>
         <block name="content">
             <view>admin/default</view>
         </block>
@@ -10,6 +13,18 @@
     <layout action="login">
         <block name="content">
             <view>admin/login</view>
+        </block>
+    </layout>
+    
+    <layout action="addpost">
+        <block name="content">
+            <view>admin/addpost</view>
+        </block>
+    </layout>
+    
+    <layout action="viewposts">
+        <block name="content">
+            <view>admin/viewposts</view>
         </block>
     </layout>
 </layouts>

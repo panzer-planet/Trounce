@@ -7,7 +7,9 @@
     </head>
     <body>
         
-        
+        <div>
+            <?php echo $this->showBlock('menu'); ?>
+        </div>
         <div>
             <?php echo $this->showBlock('content'); ?>
         </div>

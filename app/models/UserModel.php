@@ -30,4 +30,6 @@ class UserModel extends Model{
         $result = $this->db->insert('users',array('email' => $email,'name' => $name, 'surname' => $surname));
         if(!$result) die('Could not insert');
     }
+    
+    
 }

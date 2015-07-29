@@ -12,7 +12,7 @@
  */
 
 $system_time_start = microtime();
-
+session_start();
 define('FRAMEWORK_NAME',"Trounce");
 define('DS',DIRECTORY_SEPARATOR);
 define('ROOT',dirname(dirname(__FILE__))); # The root is this file's directory's parent

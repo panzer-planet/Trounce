@@ -1,6 +1,6 @@
 
 <div class="container">
-
+        <p><?php if(isset($error))echo $error; ?></p>
       <form class="form-signin" method="post" action="/admin/login">
         <h2 class="form-signin-heading">Please sign in</h2>
         <label for="inputEmail" class="sr-only">Email address</label>

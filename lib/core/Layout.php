@@ -41,43 +41,16 @@ class Layout{
      */
     private $variables;
     
-    public function __construct(){
-        $this->views_to_render = array();
+    public function __construct($layout_name){
+        $this->layout_name = $layout_name;
+        $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($layout_name).'.xml';
+        $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
+        $this->filename = $filename;
+        $this->xml_file = simplexml_load_file($filename);
+        $this->theme_name =  $this->xml_file['theme'];
     }
     
-    /**
-     * Render the layout
-     */
-    public function render($layout_name, $variables = array()){
-        
-        if($variables) $this->variables = $variables;
-    /*
-        $args = func_get_args();
-        if(count($args)){
-            if(isset($args[0])){
-                $this->layout_name = $args[0];
-                if(isset($args[1]) && is_array($args[1])){
-                    $this->variables = $args[1];
-                }
-            }elseif(!isset($this->layout_name)){
-                throw new Exception();
-            }
-        }
-      */  
-        if(isset($layout_name)){
-            $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($layout_name).'.xml';
-            $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
-            $this->filename = $filename;
-            $this->xml_file = simplexml_load_file($filename);
-            $this->theme_name =  $this->xml_file['theme'];
 
-            $this->renderTheme();
-        }else{
-            throw new Exception('Cannot render before layout_name set');
-        }
-        
-    }
-    
 
     /**
      * Add a CSS <link> element
@@ -120,30 +93,32 @@ class Layout{
                 }
             }
         }else{
-            die('This action does not exist in the layout');
+            if(App::$_config['debug']){
+                echo '<p style="color:red">This action does not exist in the layout</p>';
+            }
+         
+            Logger::write('system',"This action does not exist in the layout");
         }
         return $views;
     }
 
+    public function hasAction($action_name){
+        $xpath = '//layout[@action=\''.$action_name.'\']';
+       # print_r($xpath);exit;
+        $xml_layout_element = $this->xml_file->xpath($xpath);
+        return $xml_layout_element ? true : false;
+    }
     
     protected function showBlock($block_name, $views = array()){
-        /*
-        $args = func_get_args();
-        
-        if(isset($args[0])){
-            $block_name = $args[0];
-            if(isset($args[1]) && is_array($args[1])){
-                $views = $args[1];
-            }
-        }else{
-            throw new Exception("Layout::showBlock() expects 1 or 2 arguments");
-        }
-        */
+
         
          # The current action's layout is selectd
         $xpath = '//layout[@action=\''.App::$_router->getActionName().'\']';
+        
          # An SimpleXMLElement is created on the layout node
         $xml_layout_element = $this->xml_file->xpath($xpath);
+        if(!$xml_layout_element){ return false; }
+        #print_r($xml_layout_element);exit;
          # We get an array of views for the specified block
         $views = $this->getBlockViews($xml_layout_element,$block_name);
         
@@ -164,20 +139,8 @@ class Layout{
      * @param string $block_name
      * @param array $variables
      */
-    private function renderView($view, $vars = array()){
-        
-        /*
-        $args = func_get_args();
-        
-        if(isset($args[0])){
-            $view = $args[0];
-            if(isset($args[1]) && is_array($args[1])){
-                $vars = $args[1];
-            }
-        }else{
-            throw new Exception("Layout::renderBlock() expects 1 or 2 arguments");
-        }
-        */
+    private function renderView($view, $vars = array()){   
+   
         if(isset($vars)){
             # Here the variables are 
             # rescoped for access in the block
@@ -194,7 +157,8 @@ class Layout{
         }
     }
     
-    private function renderTheme(){
+    public function render($variables = array()){
+        $this->variables = $variables;
         #ob_start();
         if(file_exists(ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php')){
             require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';

@@ -19,9 +19,7 @@
         }
         $this->_cookie = $_COOKIE;
         $this->_files = $_FILES;
-        if(isset($_SESSION)){
-            $this->_session &= $_SESSION;
-        }
+       
     }
     
     /**
@@ -43,18 +41,16 @@
      * @param string The name of the get variable
      * @param boolean Enable XSS filtering
      */
-    public function get(){
-        $args = func_get_args();
-        if( count($args) == 1 ){
-            if(isset($this->_get[$args[0]])){
-                return $this->_get[$args[0]];
+    public function get($name, $filter_xss = false){
+        if(isset($this->_get[$name])){
+            if($filter_xss){
+                return Security::filter_xss($this->_get[$name]);
             }else{
-                return false;
+                return $this->_get[$name];
             }
-        }elseif( count($args) == 2 && $args[1] === true){
-            return Security::filter_xss($this->_get[$arg[0]]);
+        }else{
+            return false;
         }
-        return false;
     }
     
    /**
@@ -83,7 +79,7 @@
      * @param string The name of the session variable
      * @param boolean Enable XSS filtering
      * @param $xss_filtering_enabled
-     */
+    
     public function session(){
         $args = func_get_args();
         if( count($args) == 1 ){
@@ -97,6 +93,6 @@
         }
         return false;
     }
-    
+     */
     
  }
