@@ -76,7 +76,7 @@ After trying many PHP frameworks including CakePHP, CodeIgniter, Symphony, Drupa
 
 ### MVC with Layout XML
 
-Trounce makes use of Layout XML to give the developer more flexibility and save time. For example here is a layout `home.xml` that is to be rendered using the `dark_blue` theme. When the user calls `$this->showLayout('home');` in default controller action, the `home.xml` Layout file is loaded:
+Trounce makes use of Layout XML to give the developer more flexibility and save time. For example here is a layout `home.xml` that is to be rendered using the `dark_blue` theme. When an action is run in the default controller , the `default.xml` Layout file is loaded by convention. The relevant blocks will be automatically rendered if they exist for the current action:
 ```
 <?xml version="1.0"?>
 <layouts theme='dark_blue'>
@@ -98,11 +98,11 @@ Trounce makes use of Layout XML to give the developer more flexibility and save 
 
 </layouts>
 ```
-The framework them loads the appropriate theme file `dark_blue.php` (in this case) as indicated in the attributes of the top level element **layouts**. When `$this->showBlock('header')` is encountered, Trounce renders all the views and other assets found in that block of the layout file. Trounce effectively utilises something like **MLTBVC** ( Model, Layout, Theme, Block, View, Controller)
+The framework them loads the specified theme file `dark_blue.php` (in this case) as indicated in the attributes of the top level element **layouts**. When `$this->showBlock('header')` is encountered in the theme, Trounce renders all the views and other assets found in that block of the layout file. Trounce effectively utilises something like **MLTBVC** ( Model, Layout, Theme, Block, View, Controller)
 
 #### What's the advantage of MLTBVC vs MVC?
 
-The layout file shown above is a simple example including only one action with a single layout. If we wanted to add another page to our website we **only specify changes to the default**. In other words: any block that is called to render will look in the default layout if it isn't found in it's own layout. What this means is, if we wanted to add another page here, all we need to do is add an update for when a different action is called:
+The layout file shown above is a simple example including only one action with a single layout. If we wanted to add another page to our website we **only specify changes to the default**. In other words: any block that is called to render will look in the default layout if it isn't found in it's own layout. If nothing at all is specified for the action's layout, trounce assumes it is a non-layout route and renders nothing. This is useful for, say, JSON output. What this means is, if we wanted to add another page here, all we need to do is add an update for when a different action is called:
 
 ```
 <?xml version="1.0"?>
@@ -139,10 +139,10 @@ Just make sure the template `about.php` is available in **app/views/** and add t
 <?php
 class DefaultController extends Controller{
     public function defaultAction(){
-         $this->showLayout('default');
+  
     }
-    public function aboutAction($name){
-        $this->showLayout('default');
+    public function aboutAction(){
+     
     }
 }
 ```
