@@ -13,10 +13,11 @@ class Logger{
             $ts = date('[Y-m-d H:m:s]:');
         }
 		$handle = fopen( ROOT . DS . 'logs' . DS . strtolower($log_name) . '.txt','a+');
-		$result = fwrite($handle, $ts . ' ' . $text."\n");
-		if( !  $result ) {
-			throw new Exception('Could not log to ' . ROOT . DS . 'logs' . DS . $log_name .'.txt. Can PHP write here?');
+		if($handle){
+            $result = fwrite($handle, $ts . ' ' . $text."\n");
+            if($result){return true;}
 		}
+			throw new Exception('Could not log to ' . ROOT . DS . 'logs' . DS . $log_name .'.txt. Can PHP write here?');
 
 	}
 	# TODO move to util function
