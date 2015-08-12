@@ -171,11 +171,13 @@ class Layout{
     public function render($variables = array()){
         $this->variables = $variables;
         #ob_start();
-        if(file_exists(ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php')){
-            require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';
-        }else{
-            #File not found
-            throw new Exception(__class__ . __method__ .' Theme file not found');
+        if($this->loaded){
+            if(file_exists(ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php')){
+                require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';
+            }else{
+                #File not found
+                throw new Exception(__method__ .' Theme file not found');
+            }
         }
         #$buffer = ob_get_clean();
     }
