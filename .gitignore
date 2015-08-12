@@ -2,8 +2,13 @@
 logs/*.txt
 *.kate-swp
 app/controllers/*
+!app/controllers/.htaccess
+
 app/models/*
-app/themes/*
+!app/models/.htaccess
+app/themes/*.php
+!app/themes/.htacceess
 app/views/*
+!app/views/.htaccess
 app/layouts/*
-app/error_pages/*
+!app/layouts/.htaccess
