@@ -41,13 +41,24 @@ class Layout{
      */
     private $variables;
     
+    /**
+     * @var bool Was the file loaded?
+     */
+    private $loaded = false;
+    
     public function __construct($layout_name){
         $this->layout_name = $layout_name;
-        $filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($layout_name).'.xml';
         $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
-        $this->filename = $filename;
-        $this->xml_file = simplexml_load_file($filename);
-        $this->theme_name =  $this->xml_file['theme'];
+        $this->filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($layout_name).'.xml';
+       
+        $this->xml_file = @simplexml_load_file($this->filename);
+        if($this->xml_file){
+            $this->loaded = true;
+            $this->theme_name =  $this->xml_file['theme'];
+            return true;
+        }
+        return false;
+        
     }
     
 
@@ -103,8 +114,8 @@ class Layout{
     }
 
     public function hasAction($action_name){
+        if(!$this->loaded) return false;
         $xpath = '//layout[@action=\''.$action_name.'\']';
-       # print_r($xpath);exit;
         $xml_layout_element = $this->xml_file->xpath($xpath);
         return $xml_layout_element ? true : false;
     }
