@@ -70,7 +70,7 @@ class Layout{
      */
     private function addCss($filename){
         
-        return '<link href="http://'.$_SERVER['HTTP_HOST'].'/css/'.$filename.'" rel="stylesheet">';
+        echo '<link href="http://'.$_SERVER['HTTP_HOST'].'/css/'.$filename.'" rel="stylesheet">';
     }
     
     /**
@@ -79,7 +79,7 @@ class Layout{
      * @param string Name of the JS file
      */
     private function addJs($filename){
-        return '<script src="http://'.$_SERVER['HTTP_HOST'].'/js/'.$filename.'"></script>';
+        echo '<script src="http://'.$_SERVER['HTTP_HOST'].'/js/'.$filename.'"></script>';
     }
     
     /**
