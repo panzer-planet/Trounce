@@ -1,2 +1,0 @@
-<h4>About</h4>
-<p>Après un accident de voiture dont elle sort en passant par une clinique, Katie de Maio doit s'occuper du décès d'une jeune femme enceinte dont la grossesse était suivie par cette même clinique. Le mystérieux docteur H qui gère cette clinique, à l'occasion de l'accueil de Katie, lui a fait quelques examens et estime qu'il va falloir l'opérer...</p>

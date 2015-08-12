@@ -1,6 +1,0 @@
-<form action="contact" name="contact" method="post">
-    <label for="email">Email Address:</label>
-    <input name="email" type="text"/>
-    <input type="submit"/>
-
-</form>
