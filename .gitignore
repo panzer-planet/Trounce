@@ -1,5 +1,5 @@
 *.DS_Store
-logs/*
+logs/*.txt
 *.kate-swp
 app/controllers/*
 app/models/*
