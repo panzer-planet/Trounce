@@ -1,3 +1,9 @@
 *.DS_Store
 logs/*
 *.kate-swp
+app/controllers/*
+app/models/*
+app/themes/*
+app/views/*
+app/layouts/*
+app/error_pages/*

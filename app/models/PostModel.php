@@ -18,6 +18,10 @@ class PostModel extends Model{
         
     }
     
+    public function edit($id, $field, $value) {
+        return $this->db->update('posts', array($field => $value), array('id = ?', array($id)));
+    }
+    
     public function getAll(){
         return $this->db->query("SELECT * FROM posts");
     }

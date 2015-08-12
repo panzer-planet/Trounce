@@ -50,4 +50,12 @@ class AdminController extends Controller{
             $entries = $posts->getAll();
             return array('entries' => $entries);
 	}
+	
+	public function editPostsAction(){
+        if (isset($_POST['content']) && isset($_POST['id'])) {
+            $posts = new PostModel;
+            $posts->edit(App::$_request->post('id',false), 'content', App::$_request->post('content',true));
+            App::$_response->redirect(Loc::url('admin/viewposts'));
+        }
+	}
 }

@@ -12,9 +12,18 @@
     <tbody>
     <?php foreach($entries as $entry): ?>
       <tr>
-        <td><?= $entry['id']; ?></td>
-        <td><?= $entry['title']; ?></td>
-        <td><?= $entry['content']; ?>.com</td>
+        <form method="post" action="/admin/editPosts">
+            <td><?= $entry['id']; ?></td>
+            <td>
+                
+                <input type="text" name="title" value="<?= $entry['title']; ?>" placeholder="title"/>
+            </td>
+            <td>
+                <input type="text" name="content" value="<?= $entry['content']; ?>" placeholder="content"/>
+                <button>Edit</button>
+            <td>
+            <input type="hidden" name="id" value="<?= $entry['id']; ?>"/>
+        </form>
       </tr>
     <?php endforeach; ?>
     </tbody>

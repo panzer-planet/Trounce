@@ -342,20 +342,19 @@ class T_DB {
             $this->error_code = self::ERR_INVALID_PARAMETER;
             return false;
         }
-        $i = 0;
+
         $binding = array();
         $set_str = "";
         foreach($data as $field => $val){
             $set_str .= ",{$field} = ?";
             $binding[] = $val;
-            $i++;
         }
         $set_str = substr($set_str,1);
         $binding = array_merge($binding,$conditions[1]);
         $sql = "UPDATE {$table} SET {$set_str} WHERE {$conditions[0]}";
         try{
             $stmt = $this->pdo->prepare($sql);
-            $i = 0;
+            $i = 1;
             foreach($binding as $val){
                 $stmt->bindValue($i,$val,$this->getPDOParam($val));
                 $i++;
