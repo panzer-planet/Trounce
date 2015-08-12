@@ -176,7 +176,7 @@ class Layout{
                 require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';
             }else{
                 #File not found
-                throw new Exception(__method__ .' Theme file not found');
+                throw new Exception(__method__ .' Theme file not found: '.$this->theme_name);
             }
         }
         #$buffer = ob_get_clean();
