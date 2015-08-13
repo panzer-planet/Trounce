@@ -83,5 +83,27 @@ class Security {
     public static function filter_xss($string){
         return htmlentities($string);
     }
+    
+    /**
+     * Ensure the post variables exist with optional XSS filtering
+     * @param array $variable_map A list of variable names
+     * @param bool $filter_xss Variable will be filtered for XSS
+     * @return array $variables The validated and filtered variables
+     */
+    public static function validate_post($variable_map, $filter_xss = false){
+        $validated = array();
+        foreach($variable_map as $var){
+            if(empty($_POST[$var])){
+                return false;
+            }else{
+                if($filter_xss){
+                    $validated[] = self::filter_xss($_POST[$var]);
+                }
+            }
+            
+        }
+        return $validated;
+    
+    }
 
 }
