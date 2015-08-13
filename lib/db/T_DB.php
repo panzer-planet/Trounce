@@ -64,7 +64,7 @@ class T_DB {
      * Holds the last error
      * @var string
      */
-	public $error = "";
+	public $error_message = "";
 	
 	/**
 	 * Holds an error code
@@ -193,6 +193,10 @@ class T_DB {
                     $dsn = "pgsql:host={$this->host};dbname={$this->db_name};user={$this->username};password={$this->password}";
                     if($this->port){ $dsn .= ";port={$this->port}"; }
                     $this->pdo = new PDO($dsn);
+                break;
+                default:
+                    $this->error_message = "Invalid database type";
+                    $this->error_code = self::ERR_UNKNOWN;
                 break;
             }
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
