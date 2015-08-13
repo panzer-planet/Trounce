@@ -97,9 +97,9 @@ class Security {
                 return false;
             }else{
                 if($filter_xss){
-                    $validated[] = self::filter_xss($_POST[$var]);
+                    $validated[$var] = self::filter_xss($_POST[$var]);
                 }else{
-                    $validated[] = $var;
+                    $validated[$var] = $var;
                 }
             }
             
