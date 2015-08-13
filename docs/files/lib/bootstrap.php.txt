@@ -11,87 +11,59 @@ if($system_config['debug']){
     ini_set('display_errors',1);
     error_reporting(E_ALL);
 }
-
-# File loading
-/* Autoloading is not slow but it's defintely not faster
- * https://mwop.net/blog/245-Autoloading-Benchmarks.html
- * I'm avoiding autoloading where it's not a hassle. the
- * fastest solution is a class map but this will be a hybrid
- * as I don't expect the system to be very big.
- */
- 
- # Load libraries
- $file_loader = function() use($system_config){
-    if($system_config['dev_mode']){
-        /* This can be used in development mode
-        * so that enabled library files don't have to be added
-        * to the class map manually
-        */
-        foreach($system_config['load_libs'] as $lib){
-            foreach(glob( ROOT . DS . 'lib' . DS . $lib . DS . '*.php') as $filename){
-                require_once $filename;
-            }
-        }
-    }else{
-        /* In production, a class map is the fastest
-        * method of including files.
-        */
-        require_once ROOT . DS . 'lib'. DS . 'lib_map.php';
-        foreach($lib_map as $lib => $classes){
-            foreach($classes as $class){
-                require_once ROOT . DS . 'lib' . $lib . DS . $class . '.php';
-            }
-        }
+require_once ROOT . DS . 'lib' . DS . 'config' . DS . 'filemap.config.php';
+$load_libs = function() use($lib_files){
+    foreach($lib_files as $lib_file){
+        require_once $lib_file;
     }
-};$file_loader();unset($file_loader);
-
+};$load_libs();unset($load_libs);unset($lib_files);
+ 
 # Autoloader
 /* The Autoloader checks for models, helpers
- * and other app files
+ * and other app files not loaded explicitly
  */
 function __autoload($class_name){
     #For loading models
     $found = false;
-    $model_loc = ROOT . DS . 'app' . DS . 'models' . DS;
+    $model_loc = ROOT . DS . 'app' . DS . 'models';
     #models
+    Logger::write('system',"Loading {$model_loc}/{$class_name}.php");
     if(file_exists($model_loc . DS . $class_name . '.php')){
         require_once $model_loc . DS . $class_name . '.php';
         $found = true;
     }
     
     if(!$found){
-        throw new Exception("Class could not be loaded: ".$class_name);
-    }
+        if($system_config['debug']){
+            die("Class could not be loaded: ".$class_name);
+        }else{
+            header($_SERVER['SERVER_PROTOCOL'] . ' 500 Internal Server Error', true, 500);
+        }
+       
+    } 
 }
-Logger::log_no_timestamp('system','##########################################');
-Logger::log_no_timestamp('system','###       Welcome to ' . FRAMEWORK_NAME . '        ###');
-Logger::log_no_timestamp('system','###    ' . date("l jS F Y H:m:s") . '   ###');
-Logger::log_no_timestamp('system','##########################################');
 
-    # Include app config
-require_once ROOT . DS . 'app'. DS . 'app.config.php';
-    
-
+Logger::write('system','###         Welcome to ' . FRAMEWORK_NAME . '        ###');
+Logger::write('system','###  ' . date("l jS F Y H:m:s") . '  ###');
 
     /* IMPORTANT: Anything not in the system config or overwritten by
     # the app config is used as the setting from this point on.
     # It is important to remember that the system config is always
     # used before this point */
-   
-   #System configuration is available with Config::$system
-Config::$system = $system_config;
-    #App configuration is available with Config::$app
-Config::$app = array_merge($system_config,$app_config);
 
-    # Include the app's entry point file
-require_once ROOT . DS . 'app'. DS . 'index.php';
+$app_config = array_merge($system_config,$app_config);
+App::set_config($app_config);
+ # Clean up the global namespace
+unset($app_config);
+unset($system_config);
+ # Run the app
+App::run();
 
-    
-if($system_config['debug']){
-    $total_time = round(microtime() - $system_time_start, 4);
+ # Microtime end
+if(App::$_config['debug']){
+    $system_time_total = microtime() - $system_time_start;
     echo "<pre>";print_r($GLOBALS);
-    echo 'Page generated in '. $total_time . ' seconds.';
-
+    echo 'Page generated in '. round($system_time_total,4) . ' seconds.';
 }
 
 

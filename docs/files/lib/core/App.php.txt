@@ -23,7 +23,11 @@ class App {
 	 * @var Response Holds a Response object
 	 */
 	public static $_response;
-
+    
+    /**
+     * @var $_config
+     */
+     public static $_config = array();
 
 	/**
 	 * Run the application
@@ -33,13 +37,15 @@ class App {
 	 * resolve the querystring to a controller and action which is
 	 * then run.
 	 */
-	 
+	
+	public static function set_config($app_config){
+        self::$_config = $app_config;
+	}
+	
 	public static function run(){
 	
-		Logger::log('system', 'Launching app ');
-		
 		#Resolve URL
-		Logger::log('system', 'Resolving URL: ' . $_SERVER['QUERY_STRING']);
+		Logger::write('system', 'Resolving URL: ' . $_SERVER['REQUEST_URI']);
 		self::$_router = new Router;
 		self::$_router->resolveUrl();
 		
@@ -49,28 +55,35 @@ class App {
 		self::$_response = new Response;
 		
 		#Initialise the controller
-		Logger::log('system','Initialising controller');
-		$controller_name = self::$_router->getControllerName().'Controller';
-        
-		if($_controller = self::initController($controller_name)){
+		Logger::write('system','Initialising '.self::$_router->getControllerName().'Controller');
+		        
+		if($_controller = self::initController(self::$_router->getControllerName())){
 		      
 			#Run the action code
 			$action_name = self::$_router->getActionName().'Action';
 			
-			
 			if(method_exists($_controller,$action_name)){
-				Logger::log('system', 'Firing action: '.self::$_router->getActionName());
-                   
+				Logger::write('system', 'Firing action: '.self::$_router->getActionName());
+                $result = array();
 				if(self::$_router->getArguments()){
-                    call_user_func_array(array($_controller, $action_name),self::$_router->getArguments());
+                    $result = call_user_func_array(array($_controller, $action_name),self::$_router->getArguments());
                 }else{
-                    call_user_func(array($_controller, $action_name));
+                    $result = call_user_func(array($_controller, $action_name));
                 }
+                
+                $layout = new Layout(self::$_router->getControllerName());
+                if($layout->hasAction(self::$_router->getActionName())){
+                    if($result){
+                        $layout->render($result);
+                    }else{
+                        $layout->render();
+                    }
+                }
+                
 			}else{
 				self::display404();
 			}
 		}else{
-		
 			self::display404();
 		}
 	}
@@ -84,11 +97,12 @@ class App {
 	 * Initialises a controller
 	 * @param string $controller_name
 	 */ 
-	private static function initController($controller_name){
+	private static function initController($controller){
+        $controller_class = $controller.'Controller';
 	    #might need to do a try catch here to get it to 404 correctly
-	    if(file_exists(ROOT . DS . 'app'.  DS . 'controllers'. DS . $controller_name .'.php')){
-            require_once ROOT . DS . 'app'. DS . 'controllers'. DS . $controller_name .'.php';
-            $controller = new $controller_name();
+	    if(file_exists(ROOT . DS . 'app'.  DS . 'controllers'. DS . $controller_class.'.php')){
+            require_once ROOT . DS . 'app'. DS . 'controllers'. DS . $controller_class.'.php';
+            $controller = new $controller_class();
             return $controller;
 	    }else{
             return false;

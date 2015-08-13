@@ -1,0 +1,45 @@
+<?php
+/**
+ * Trounce - Rapid development PHP framework 
+ * @copyrite Copyright (c) 2015,  Werner Roets
+ * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
+ * @author Werner Roets <cobolt.exe@gmail.com>
+ */
+
+
+class Loc{
+    
+    static function dir_root(){
+        return ROOT;
+    }
+ 
+    static function dir_public(){
+        return ROOT . DS . 'public';
+    }
+    
+    static function dir_js(){
+        return ROOT . DS . 'public' . DS . 'js';
+    }
+    
+    static function dir_css(){
+        return ROOT . DS . 'public' . DS . 'css';
+    }
+    
+    
+    static function url_root(){
+        return 'http://'.$_SERVER['HTTP_HOST'];
+    }
+    
+    static function url_js(){
+        return self::url_root() . DS . 'css'; 
+    }
+    
+    static function url_css(){
+        return self::url_root() . DS . 'js';
+    }
+    
+    static function url($location = ""){
+        return self::url_root() . DS . $location;
+    }
+ }
+ 

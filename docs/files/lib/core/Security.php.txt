@@ -5,7 +5,7 @@
  * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author Werner Roets <cobolt.exe@gmail.com>
  */
-class Security extends Base{
+class Security {
     /**
      * Check if a URL is valid. Check source for details
      * @param $url
@@ -82,6 +82,30 @@ class Security extends Base{
     
     public static function filter_xss($string){
         return htmlentities($string);
+    }
+    
+    /**
+     * Ensure the post variables exist with optional XSS filtering
+     * @param array $variable_map A list of variable names
+     * @param bool $filter_xss Variable will be filtered for XSS
+     * @return array $variables The validated and filtered variables
+     */
+    public static function validate_post($variable_map, $filter_xss = false){
+        $validated = array();
+        foreach($variable_map as $var){
+            if(empty($_POST[$var])){
+                return false;
+            }else{
+                if($filter_xss){
+                    $validated[$var] = self::filter_xss($_POST[$var]);
+                }else{
+                    $validated[$var] = $_POST[$var];
+                }
+            }
+            
+        }
+        return $validated;
+    
     }
 
 }

@@ -1,4 +1,34 @@
-<h4>Default Page</h4>
-<p>La gare de la Pointe-de-Grave est une gare ferroviaire française de la ligne de Ravezies à Pointe-de-Grave (dite aussi ligne du Médoc), située sur la commune du Verdon-sur-Mer, à proximité de la Pointe de Grave, dans le département de la Gironde, en région Aquitaine.
-Elle est mise en service en 1902 par la Compagnie du chemin de fer du Médoc, avant de devenir une gare de la Compagnie des chemins de fer du Midi après son rachat de la ligne en 1912. C'est une halte ferroviaire de la Société nationale des chemins de fer français (SNCF), elle est desservie par des trains TER Aquitaine, uniquement pendant la saison estivale.
+<h2>Welcome to Trounce</h2>
 
+<p>Trounce is a web development framework for PHP with emphasis on <b>speed</b>, <b>security</b> and <b>simplicity</b>.</p>
+<p>Project on Github: <a href="https://github.com/panzer-planet/Trounce">https://github.com/panzer-planet/Trounce</a></p>
+<pre>
+<h4>Directory structure</h4>
++-/
+ |+ app/   -- Your application goes here
+  |- controllers/
+  |- error_pages/  
+  |- layouts/
+  |- models/         
+  |- themes/
+  |- views/
+  |- app.config.php   -- Your app config
+  |- index.php        -- Application entry point
+ |- docs              -- Generated API docs
+ |+ lib               -- Trounce core files
+ |- logs
+ |+ public
+  |- js/        -- Servable JS goes here
+  |- css/       -- Servable CSS goes here
+  |- index.php  -- Framework entry point
+  </pre>
+  
+<h3>A Different Approach</h3>
+<p>
+After trying many PHP frameworks including CakePHP, CodeIgniter, Symphony, Drupal, Wordpress, Joomla and Magento I became interested in framework development and decided to make my own. Although I have taken much inspiration from the above mentioned frameworks Trounce has some new ideas in it too.
+</p>
+
+<h4>MVC with Layout XML</h4>
+<p>Trounce makes use of Layout XML to give the developer more flexibility and save time. This feature was inspired by Magento's XML layout.
+For example here is a layout home.xml that is to be rendered using the dark_blue theme. When an action is run in the default controller , the default.xml Layout file is loaded by convention. The relevant blocks will be automatically rendered if they exist for the current action. This is a very powerful workflow.</p>
+<p>Read the full README on <a href="https://github.com/panzer-planet/Trounce/blob/master/README.md">Github</a></p>

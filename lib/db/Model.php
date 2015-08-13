@@ -15,12 +15,16 @@ class Model{
      
     public function __construct(){
         $this->db = new T_DB(App::$_config['db_type']);
-        $this->db->connect(
-            App::$_config['db_host'],
-            App::$_config['db_username'],
-            App::$_config['db_password'],
-            App::$_config['db_name']
-        );
-      
+        if($this->db){
+            return $this->db->connect(
+                App::$_config['db_host'],
+                App::$_config['db_username'],
+                App::$_config['db_password'],
+                App::$_config['db_name']
+            );
+        }else{
+            return false;
+        }
+        
     }
 }
