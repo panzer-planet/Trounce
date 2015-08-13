@@ -38,7 +38,7 @@ class Loc{
         return self::url_root() . DS . 'js';
     }
     
-    static function url($location){
+    static function url($location = ""){
         return self::url_root() . DS . $location;
     }
  }
