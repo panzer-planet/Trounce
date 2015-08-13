@@ -99,7 +99,7 @@ class Security {
                 if($filter_xss){
                     $validated[$var] = self::filter_xss($_POST[$var]);
                 }else{
-                    $validated[$var] = $var;
+                    $validated[$var] = $_POST[$var];
                 }
             }
             
