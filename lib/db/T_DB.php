@@ -196,7 +196,7 @@ class T_DB {
                 break;
                 default:
                     $this->error_message = "Invalid database type";
-                    $this->error_code = self::ERR_UNKNOWN;
+                    $this->error_code = self::ERR_CANT_CONNECT;
                 break;
             }
             $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
@@ -204,7 +204,7 @@ class T_DB {
             return true;
         }catch(PDOException $pe) {
             $this->error_message = $pe->getMessage();
-            $this->error_code = self::ERR_UNKNOWN;
+            $this->error_code = self::ERR_CANT_CONNECT;
             return false;
         }
     }
