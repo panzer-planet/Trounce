@@ -164,7 +164,9 @@ class Layout{
             require_once ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php';
         }else{
             #File not found
-            echo "<div style="color: red;">VIEW NOT FOUND ({$view})</div>";
+            if(App::$_config['debug']){
+                echo "<div style="color: red;">VIEW NOT FOUND ({$view})</div>";
+            }
         }
     }
     
