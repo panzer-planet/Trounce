@@ -165,7 +165,7 @@ class Layout{
         }else{
             #File not found
             if(App::$_config['debug']){
-                echo "<div style="color: red;">VIEW NOT FOUND ({$view})</div>";
+                echo '<div style="color: red;">VIEW NOT FOUND ('.$view.')</div>';
             }
         }
     }
