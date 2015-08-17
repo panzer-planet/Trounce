@@ -14,6 +14,7 @@ class Model{
     public $db;
      
     public function __construct(){
+
         $this->db = new T_DB(App::$_config['db_type']);
         if($this->db){
             return $this->db->connect(
