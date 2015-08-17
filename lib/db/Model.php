@@ -23,6 +23,10 @@ class Model{
                 App::$_config['db_name']
             );
         }else{
+            Logger::write('error',"Failed to connect to the database");
+            if(App::$_config['debug']){
+                die('FATAL ERROR: Database could not connect');
+            }
             return false;
         }
         
