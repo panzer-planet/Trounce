@@ -346,7 +346,12 @@ class T_DB {
             $this->error_code = self::ERR_INVALID_PARAMETER;
             return false;
         }
-
+         if(empty($conditions) | !is_array($conditions)){
+            $this->error_message = 'Argument 3 for '.__method__.' must be an array';
+            $this->error_code = self::ERR_INVALID_PARAMETER;
+            return false;
+        }
+        
         $binding = array();
         $set_str = "";
         foreach($data as $field => $val){

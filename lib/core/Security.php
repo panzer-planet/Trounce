@@ -94,6 +94,7 @@ class Security {
         $validated = array();
         foreach($variable_map as $var){
             if(empty($_POST[$var])){
+      
                 return false;
             }else{
                 if($filter_xss){
