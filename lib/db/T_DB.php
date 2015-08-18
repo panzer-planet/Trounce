@@ -188,22 +188,27 @@ class T_DB {
                     if($this->charset){ $dsn .= ";charset={$this->charset}"; }
                     if($this->port){ $dsn .= ";port={$this->port}"; }
                     $this->pdo = new PDO($dsn, $this->username, $this->password);
-                    if($this->pdo !== null){ $this->connected = true; }
                 break;
                 case self::TYPE_PGSQL;
                     $dsn = "pgsql:host={$this->host};dbname={$this->db_name};user={$this->username};password={$this->password}";
                     if($this->port){ $dsn .= ";port={$this->port}"; }
                     $this->pdo = new PDO($dsn);
-                    if($this->pdo !== null){ $this->connected = true; }
+          
                 break;
                 default:
                     $this->error_message = "Invalid database type";
-                    $this->error_code = self::ERR_CANT_CONNECT;
                     return false;
                 break;
             }
-            $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-            return true;
+            if($this->pdo !== null){ 
+                $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+                $this->connected = true; 
+                return true;
+            }else{
+                return false;
+            }
+            
+      
         }catch(PDOException $pe) {
             $this->error_message = $pe->getMessage();
             $this->error_code = self::ERR_CANT_CONNECT;
