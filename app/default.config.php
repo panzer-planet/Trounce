@@ -9,7 +9,7 @@ $app_config = array(
 
 
     'rewrite' => true,  #requires mod_rewrite #deprecated (mod_rewrite)
-    'debug' => false,
+    'debug' => true,
     
     'log_directory' => ROOT . DS . 'logs' . DS,
     

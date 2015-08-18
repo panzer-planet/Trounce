@@ -16,6 +16,7 @@ class Model{
     public function __construct(){
 
         $this->db = new T_DB(App::$_config['db_type']);
+        
         $success = $this->db->connect(
                 App::$_config['db_host'],
                 App::$_config['db_username'],
@@ -25,9 +26,9 @@ class Model{
         if($success){
             return $this;
         }else{
-            Logger::write('error',"Failed to connect to the database");
+            Logger::write('error',$this->db->error_message);
             if(App::$_config['debug']){
-                die('FATAL ERROR: Database could not connect');
+                die('<p style="color:red;">FATAL ERROR: '.$this->db->error_message.'</p>');
             }
             return false;
         }

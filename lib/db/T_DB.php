@@ -200,14 +200,15 @@ class T_DB {
                     return false;
                 break;
             }
-            if($this->pdo !== null){ 
-                $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
-                $this->connected = true; 
-                return true;
-            }else{
+            
+            if($this->pdo == null){ 
+                $this->error_message = "Unknown error while connecting";
+                $this->error_code = self::ERR_CANT_CONNECT;
                 return false;
             }
-            
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE,PDO::ERRMODE_EXCEPTION);
+            $this->connected = true;
+            return true;
       
         }catch(PDOException $pe) {
             $this->error_message = $pe->getMessage();
