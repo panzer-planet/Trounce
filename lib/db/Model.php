@@ -33,4 +33,8 @@ class Model{
             return false;
         }
     }
+    
+    public function get_db_error_message(){
+        return $this->db->error_message;
+    }
 }
