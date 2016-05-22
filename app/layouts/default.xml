@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<layouts theme='dark_blue'>
+
+  <layout action="default">
+
+    <block name="header">
+      <view>header</view>
+    </block>
+
+    <block name="content">
+      <view>home_page</view>
+    </block>
+
+    <block name="footer">
+      <view>site_footer</view>
+    </block>
+  </layout>
+
+</layouts>

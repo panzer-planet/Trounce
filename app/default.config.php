@@ -1,6 +1,6 @@
 <?php
 /**
- * Trounce - Rapid development PHP framework 
+ * Trounce - Rapid development PHP framework
  * @copyrite Copyright (c) 2015,  Werner Roets
  * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author Werner Roets <cobolt.exe@gmail.com>
@@ -9,19 +9,19 @@ $app_config = array(
 
 
     'rewrite' => true,  #requires mod_rewrite #deprecated (mod_rewrite)
-    'debug' => true,
-    
+    'debug' => 1,
+
     'log_directory' => ROOT . DS . 'logs' . DS,
-    
+
     'enable_system_logging' => true,    # Ensure php has permissions to write here
     'enable_error_logging' => true,
-    
-    
+
+
     'querystring_holder' => 'url',
     'action_default' => 'default',
     'controller_default' => 'Default',
-    
-    
+
+
     'db_host' => 'localhost',
     'db_username' => 'root',
     'db_password' => 'root',

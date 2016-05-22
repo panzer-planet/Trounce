@@ -1,14 +1,14 @@
 *.DS_Store
 logs/*.txt
 *.kate-swp
-app/controllers/*
-!app/controllers/.htaccess
+#app/controllers/*
+#!app/controllers/.htaccess
 
-app/models/*
-!app/models/.htaccess
-app/themes/*.php
-!app/themes/.htacceess
-app/views/*
-!app/views/.htaccess
-app/layouts/*
-!app/layouts/.htaccess
+#app/models/*
+#!app/models/.htaccess
+#app/themes/*.php
+#!app/themes/.htacceess
+#app/views/*
+#!app/views/.htaccess
+#app/layouts/*
+#!app/layouts/.htaccess

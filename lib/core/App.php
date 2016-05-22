@@ -1,6 +1,6 @@
 <?php
 /**
- * Trounce - Rapid development PHP framework 
+ * Trounce - Rapid development PHP framework
  * @copyrite Copyright (c) 2015,  Werner Roets
  * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author Werner Roets <cobolt.exe@gmail.com>
@@ -23,7 +23,7 @@ class App {
 	 * @var Response Holds a Response object
 	 */
 	public static $_response;
-    
+
     /**
      * @var $_config
      */
@@ -37,31 +37,31 @@ class App {
 	 * resolve the querystring to a controller and action which is
 	 * then run.
 	 */
-	
+
 	public static function set_config($app_config){
         self::$_config = $app_config;
 	}
-	
+
 	public static function run(){
-	
+
 		#Resolve URL
 		Logger::write('system', 'Resolving URL: ' . $_SERVER['REQUEST_URI']);
 		self::$_router = new Router;
 		self::$_router->resolveUrl();
-		
+
 		# Create request object
 		self::$_request = new Request;
 		# Create response object
 		self::$_response = new Response;
-		
+
 		#Initialise the controller
 		Logger::write('system','Initialising '.self::$_router->getControllerName().'Controller');
-		        
+
 		if($_controller = self::initController(self::$_router->getControllerName())){
-		      
+
 			#Run the action code
 			$action_name = self::$_router->getActionName().'Action';
-			
+
 			if(method_exists($_controller,$action_name)){
 				Logger::write('system', 'Firing action: '.self::$_router->getActionName());
                 $result = array();
@@ -70,7 +70,7 @@ class App {
                 }else{
                     $result = call_user_func(array($_controller, $action_name));
                 }
-                
+
                 $layout = new Layout(self::$_router->getControllerName());
                 if($layout->hasAction(self::$_router->getActionName())){
                     if($result){
@@ -79,24 +79,27 @@ class App {
                         $layout->render();
                     }
                 }
-                
+
 			}else{
+				Logger::write('system', 'Fatal Error: Action not found');
 				self::display404();
 			}
 		}else{
+			Logger::write('system', 'Fatal Error: Controller not found');
 			self::display404();
 		}
 	}
 
 	private static function display404(){
+		Logger::write('system', '404 Not Found');
 		header("HTTP/1.1 404 Not Found");
 		require_once ROOT . DS .'app'. DS . 'error_pages/NotFound.php';
 	}
-	
+
 	/**
 	 * Initialises a controller
 	 * @param string $controller_name
-	 */ 
+	 */
 	private static function initController($controller){
         $controller_class = $controller.'Controller';
 	    #might need to do a try catch here to get it to 404 correctly
@@ -108,6 +111,6 @@ class App {
             return false;
 	    }
 	}
-	
-	
+
+
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Trounce - Rapid development PHP framework 
+ * Trounce - Rapid development PHP framework
  * @copyrite Copyright (c) 2015,  Werner Roets
  * @license http://opensource.org/licenses/gpl-license.php  GNU Public License
  * @author Werner Roets <cobolt.exe@gmail.com>
@@ -10,47 +10,47 @@
  * Render layouts to the output buffer
  */
 class Layout{
-    
+
     /**
      * @var string The filename of the layout file
      */
     private $filename;
-    
+
     /**
      * @var array A list of views to be rendered
      */
     private $view_list;
-    
+
     /**
      * @var string The name of the layout
      */
     private $layout_name;
-    
+
     /**
      * @var string The name of the theme
      */
     private $theme_name;
-    
+
     /**
      * @var SimpleXMLElement The XML layout file handle
      */
     private $xml_file;
-    
+
     /**
      * @var array Variables that need to be made available to views
      */
     private $variables;
-    
+
     /**
      * @var bool Was the file loaded?
      */
     private $loaded = false;
-    
+
     public function __construct($layout_name){
         $this->layout_name = $layout_name;
         $default = ROOT . DS .'app' . DS . 'layouts' . DS .'default.xml';
         $this->filename = ROOT . DS .'app' . DS . 'layouts' . DS . strtolower($layout_name).'.xml';
-       
+
         $this->xml_file = @simplexml_load_file($this->filename);
         if($this->xml_file){
             $this->loaded = true;
@@ -58,9 +58,9 @@ class Layout{
             return true;
         }
         return false;
-        
+
     }
-    
+
 
 
     /**
@@ -69,10 +69,10 @@ class Layout{
      * @param string Name of the CSS file
      */
     private function addCss($filename){
-        
+
         echo '<link href="http://'.$_SERVER['HTTP_HOST'].'/css/'.$filename.'" rel="stylesheet">';
     }
-    
+
     /**
      * Add a JS <script> element
      * @note consider moving to HTML lib
@@ -81,7 +81,7 @@ class Layout{
     private function addJs($filename){
         echo '<script src="http://'.$_SERVER['HTTP_HOST'].'/js/'.$filename.'"></script>';
     }
-    
+
     /**
      * Get a list of all the views contained in a given block
      * in the order at which they should be rendered
@@ -98,7 +98,7 @@ class Layout{
                         /* We should not assume these
                         * are all blocks
                         */
-                        
+
                         $views[] = (string)$view;
                     }
                 }
@@ -107,7 +107,7 @@ class Layout{
             if(App::$_config['debug']){
                 echo '<p style="color:red">This action does not exist in the layout</p>';
             }
-         
+
             Logger::write('system',"This action does not exist in the layout");
         }
         return $views;
@@ -119,20 +119,20 @@ class Layout{
         $xml_layout_element = $this->xml_file->xpath($xpath);
         return $xml_layout_element ? true : false;
     }
-    
+
     protected function showBlock($block_name, $views = array()){
 
-        
+
          # The current action's layout is selectd
         $xpath = '//layout[@action=\''.App::$_router->getActionName().'\']';
-        
+
          # An SimpleXMLElement is created on the layout node
         $xml_layout_element = $this->xml_file->xpath($xpath);
         if(!$xml_layout_element){ return false; }
         #print_r($xml_layout_element);exit;
          # We get an array of views for the specified block
         $views = $this->getBlockViews($xml_layout_element,$block_name);
-        
+
         #If nothing was found for currrent action, try default action
         if(count($views) == 0){
             $xpath = '//layout[@action=\'default\']';
@@ -141,8 +141,8 @@ class Layout{
         }
          # Render each block
         foreach($views as $view){
-            
-            $this->renderView($view,$this->variables);   
+
+            $this->renderView($view,$this->variables);
         }
     }
     /**
@@ -150,26 +150,31 @@ class Layout{
      * @param string $block_name
      * @param array $variables
      */
-    private function renderView($view, $vars = array()){   
-   
+    private function renderView($view, $vars = array()){
+
         if(isset($vars)){
-            # Here the variables are 
+            # Here the variables are
             # rescoped for access in the block
             foreach($vars as $k => $v){
                 $$k = $v;
             }
-            
+
         }
         if(file_exists(ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php')){
             require_once ROOT . DS . 'app' . DS . 'views' . DS . $view.'.php';
         }else{
             #File not found
+            header('HTTP/1.1 500 Internal Server Error');
             if(App::$_config['debug']){
-                echo '<div style="color: red;">VIEW NOT FOUND ('.$view.')</div>';
+                echo "<b style='color:red' >The view '{$view}.xml' could not be loaded</b>";
+            }else{
+                // Production mode hidden error
+
+                echo "Something, somewhere, went horribly wrong. Sorry :(";
             }
         }
     }
-    
+
     public function render($variables = array()){
         $this->variables = $variables;
         #ob_start();
@@ -178,13 +183,23 @@ class Layout{
                 require_once ROOT . DS . 'app'. DS .'themes'. DS . $this->theme_name .'.php';
             }else{
                 #File not found
-                throw new Exception(__method__ .' Theme file not found: '.$this->theme_name);
+                header('HTTP/1.1 500 Internal Server Error');
+                Logger::write('system',"Theme file '{$this->theme_name}.xml' not found. ".__file__." line ".__line__);
+                #throw new Exception(__method__ .' Theme file not found: '.$this->theme_name);
+                if(App::$_config['debug']){
+                    echo "<b style='color:red' >The theme '{$this->theme_name}.xml' could not be loaded</b>";
+                }else{
+                    // Production mode hidden error
+
+                    echo "Something, somewhere, went horribly wrong. Sorry :(";
+                }
+
             }
         }
         #$buffer = ob_get_clean();
     }
-    
-    
-   
-    
+
+
+
+
 }
