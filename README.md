@@ -1,8 +1,6 @@
 ![alt tag](https://i.imgsafe.org/abe73b6bee.png)
-Trounce PHP - Rapid Development PHP Framework 
-==========
 
-Trounce is a web development framework for PHP with emphasis on **speed**, **security** and **simplicity**.
+Trounce PHP is a web development framework for PHP with emphasis on **speed**, **security** and **simplicity**.
 
 ###The project is still in early stages 
 Your contributions and feedback are welcome!
